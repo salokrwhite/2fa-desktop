@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TwoFactorAuth.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TwoFactorAuth.Views.Wizard.WizardLanguageView"
+             x:DataType="vm:LanguageSelectionViewModel">
+
+    <StackPanel Spacing="24" MaxWidth="800" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Spacing="8" HorizontalAlignment="Center">
+            <TextBlock Text="{DynamicResource Lang.Wizard.Step1Title}" Classes="H4" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock Text="{DynamicResource Lang.Wizard.Step1Desc}" Opacity="0.6" TextAlignment="Center"/>
+        </StackPanel>
+
+        <ComboBox ItemsSource="{Binding AvailableLanguages}" 
+                  SelectedValue="{Binding SelectedLanguage}"
+                  SelectedValueBinding="{Binding Code}"
+                  HorizontalAlignment="Center"
+                  Width="400"
+                  Classes="Large">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                     <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                     </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </StackPanel>
+</UserControl>

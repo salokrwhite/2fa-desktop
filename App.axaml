@@ -1,0 +1,23 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fluent="clr-namespace:Avalonia.Themes.Fluent;assembly=Avalonia.Themes.Fluent"
+             xmlns:semi="https://irihi.tech/semi"
+             x:Class="TwoFactorAuth.App"
+             RequestedThemeVariant="Default">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Assets/Lang/zh-CN.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="MiSansFont">Microsoft YaHei UI, Segoe UI, Arial</FontFamily>
+        </ResourceDictionary>
+    </Application.Resources>
+    <Application.Styles>
+        <fluent:FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <semi:SemiTheme Locale="zh-CN" />
+        <Style Selector="Window">
+            <Setter Property="FontFamily" Value="{StaticResource MiSansFont}" />
+        </Style>
+    </Application.Styles>
+</Application>

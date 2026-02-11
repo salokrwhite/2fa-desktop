@@ -1,0 +1,498 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <!-- Navigation -->
+    <s:String x:Key="Lang.Select">Sélectionner</s:String>
+    <s:String x:Key="Lang.CancelSelect">Annuler la sélection</s:String>
+    <s:String x:Key="Lang.SelectAll">Tout sélectionner</s:String>
+    <s:String x:Key="Lang.DeselectAll">Tout désélectionner</s:String>
+    <s:String x:Key="Lang.DeleteSelected">Supprimer la sélection</s:String>
+    <s:String x:Key="Lang.BatchPin">Épinglage groupé</s:String>
+    <s:String x:Key="Lang.BatchMoveToCategory">Déplacement groupé vers la catégorie</s:String>
+    <s:String x:Key="Lang.View.Grid">Grille</s:String>
+    <s:String x:Key="Lang.View.List">Liste</s:String>
+
+    <s:String x:Key="Lang.AccountName">Nom du compte</s:String>
+    <s:String x:Key="Lang.Issuer">Émetteur</s:String>
+    <s:String x:Key="Lang.Secret">Secret (Base32)</s:String>
+    <s:String x:Key="Lang.Type">Type</s:String>
+    <s:String x:Key="Lang.Digits">Chiffres</s:String>
+    <s:String x:Key="Lang.Period">Période (sec)</s:String>
+    <s:String x:Key="Lang.Dialog.AddAccount">Ajouter un compte</s:String>
+    <s:String x:Key="Lang.Dialog.EditAccount">Modifier le compte</s:String>
+    <s:String x:Key="Lang.Toggle.On">Activé</s:String>
+    <s:String x:Key="Lang.Toggle.Off">Désactivé</s:String>
+    
+    <!-- Greeting -->
+    <s:String x:Key="Lang.Greeting.Morning">Bonjour !</s:String>
+    <s:String x:Key="Lang.Greeting.Afternoon">Bon après-midi !</s:String>
+    <s:String x:Key="Lang.Greeting.Evening">Bonsoir !</s:String>
+
+    <s:String x:Key="Lang.Nav.Dashboard">Tableau de bord</s:String>
+    <s:String x:Key="Lang.Nav.AllAccounts">Tous les comptes</s:String>
+    <s:String x:Key="Lang.Nav.Category">Catégories</s:String>
+    <s:String x:Key="Lang.Nav.Logs">Journaux</s:String>
+    <s:String x:Key="Lang.Nav.Security">Sécurité</s:String>
+    <s:String x:Key="Lang.Nav.Backup">Sauvegarde</s:String>
+    <s:String x:Key="Lang.Nav.About">À propos</s:String>
+
+    <!-- Dashboard -->
+    <s:String x:Key="Lang.Dashboard.QuickActions">Actions rapides</s:String>
+    <s:String x:Key="Lang.Dashboard.AddAccount">Ajouter un compte</s:String>
+    <s:String x:Key="Lang.Dashboard.ScanQR">Scanner QR</s:String>
+    <s:String x:Key="Lang.Dashboard.ImportBackup">Importer sauvegarde</s:String>
+    <s:String x:Key="Lang.Dashboard.LockApp">Verrouiller</s:String>
+    <s:String x:Key="Lang.Dashboard.SecurityReminder">Rappel de sécurité</s:String>
+    <s:String x:Key="Lang.Dashboard.BackupWarning">Aucune sauvegarde depuis {0} jours, sauvegarde recommandée</s:String>
+    <s:String x:Key="Lang.Dashboard.BackupWarningLong">Aucune sauvegarde depuis longtemps, sauvegarde immédiate recommandée</s:String>
+    <s:String x:Key="Lang.Dashboard.MasterPasswordSet">Mot de passe principal défini</s:String>
+    <s:String x:Key="Lang.Dashboard.MasterPasswordNotSet">Mot de passe principal non défini</s:String>
+    <s:String x:Key="Lang.Dashboard.AutoLockEnabled">Verrouillage auto activé</s:String>
+    <s:String x:Key="Lang.Dashboard.AutoLockDisabled">Verrouillage auto désactivé</s:String>
+    <s:String x:Key="Lang.Dashboard.RecentActivity">Activité récente</s:String>
+    <s:String x:Key="Lang.Dashboard.NoRecentActivity">Aucune activité récente</s:String>
+    <s:String x:Key="Lang.Dashboard.JustNow">à l'instant</s:String>
+    <s:String x:Key="Lang.Dashboard.MinutesAgo">minutes</s:String>
+    <s:String x:Key="Lang.Dashboard.HoursAgo">heures</s:String>
+    <s:String x:Key="Lang.Dashboard.DaysAgo">jours</s:String>
+
+    <!-- App Title -->
+    <s:String x:Key="Lang.AppTitle">Authentificateur 2FA</s:String>
+    <s:String x:Key="Lang.SidebarTitle">Authentificateur 2FA</s:String>
+
+    <!-- Account List -->
+    <s:String x:Key="Lang.SearchPlaceholder">Rechercher des comptes...</s:String>
+    <s:String x:Key="Lang.ClearFilter">Effacer le filtre</s:String>
+    <s:String x:Key="Lang.QrImport">Importer QR</s:String>
+    <s:String x:Key="Lang.AddAccount">Ajouter un compte</s:String>
+    <s:String x:Key="Lang.Copy">Copier</s:String>
+    <s:String x:Key="Lang.Edit">Modifier</s:String>
+    <s:String x:Key="Lang.Delete">Supprimer</s:String>
+    <s:String x:Key="Lang.AllCategories">Toutes les catégories</s:String>
+
+    <!-- QR Import -->
+    <s:String x:Key="Lang.QrImport.Title">Importer des codes QR</s:String>
+    <s:String x:Key="Lang.QrImport.SelectImages">Sélectionner des images QR...</s:String>
+    <s:String x:Key="Lang.QrImport.Clear">Vider</s:String>
+    <s:String x:Key="Lang.QrImport.Import">Importer la sélection</s:String>
+    <s:String x:Key="Lang.QrImport.FileType.Images">Fichiers image</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Select">Sélection</s:String>
+    <s:String x:Key="Lang.QrImport.Column.SourceFile">Fichier source</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Issuer">Émetteur</s:String>
+    <s:String x:Key="Lang.QrImport.Column.AccountName">Nom du compte</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Type">Type</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Digits">Chiffres</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Period">Période</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Status">Statut</s:String>
+    <s:String x:Key="Lang.QrImport.Column.RawText">Texte QR</s:String>
+    <s:String x:Key="Lang.QrImport.Status.Ready">Prêt</s:String>
+    <s:String x:Key="Lang.QrImport.Status.Duplicate">Doublon</s:String>
+    <s:String x:Key="Lang.QrImport.Status.Invalid">Invalide</s:String>
+    <s:String x:Key="Lang.QrImport.Status.NoQrFound">Aucun QR trouvé</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.AlreadyExists">Existe déjà</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.DuplicateInImport">Doublon dans l'import</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.EmptyQrText">Texte QR vide</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.InvalidUri">URI invalide</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.NotOtpAuth">Pas une URI otpauth</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.UnsupportedOtpType">Type OTP non pris en charge</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.MissingSecret">Secret manquant</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.InvalidDigits">digits invalide</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.InvalidPeriod">period invalide</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.MissingAccountName">Nom du compte manquant</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.GoogleMigration">Export groupé Google Authenticator</s:String>
+
+    <!-- Category -->
+    <s:String x:Key="Lang.Category.Title">Catégories</s:String>
+    <s:String x:Key="Lang.Category.Label">Catégorie</s:String>
+    <s:String x:Key="Lang.Category.Placeholder">Nom de la catégorie</s:String>
+    <s:String x:Key="Lang.Category.SearchPlaceholder">Rechercher des catégories ou des comptes...</s:String>
+    <s:String x:Key="Lang.Category.Dev">La gestion des catégories est en cours de développement...</s:String>
+    <s:String x:Key="Lang.Add">Ajouter</s:String>
+    <s:String x:Key="Lang.Rename">Renommer</s:String>
+    <s:String x:Key="Lang.Category.RenameTitle">Renommer la catégorie</s:String>
+    <s:String x:Key="Lang.Category.RenamePrompt">Entrez un nouveau nom de catégorie :</s:String>
+    <s:String x:Key="Lang.AccountCount">{0} comptes</s:String>
+    <s:String x:Key="Lang.Category.SortBy">Trier par :</s:String>
+    <s:String x:Key="Lang.Category.SortByCount">Par nombre</s:String>
+    <s:String x:Key="Lang.Category.SortByCountHint">Trier par nombre de comptes (décroissant)</s:String>
+    <s:String x:Key="Lang.Category.SortByName">Par nom</s:String>
+    <s:String x:Key="Lang.Category.SortByNameHint">Trier par ordre alphabétique</s:String>
+    <s:String x:Key="Lang.Category.DragHint">(Faites glisser les catégories pour réorganiser)</s:String>
+    <s:String x:Key="Lang.Category.DragToReorder">Glisser pour réorganiser</s:String>
+    <s:String x:Key="Lang.Category.Settings">Paramètres</s:String>
+    <s:String x:Key="Lang.Category.SettingsTooltip">Modifier les paramètres de catégorie</s:String>
+    <s:String x:Key="Lang.Category.SettingsTitle">Paramètres de Catégorie</s:String>
+    <s:String x:Key="Lang.Category.SettingsPrompt">Modifier le nom et la description de la catégorie :</s:String>
+    <s:String x:Key="Lang.Category.NameLabel">Nom de la Catégorie</s:String>
+    <s:String x:Key="Lang.Category.NameWatermark">Entrez le nom de la catégorie</s:String>
+    <s:String x:Key="Lang.Category.DescriptionLabel">Description / Notes</s:String>
+    <s:String x:Key="Lang.Category.DescriptionWatermark">Entrez la description ou les notes (optionnel)</s:String>
+    <s:String x:Key="Lang.Category.DescriptionHint">Utilisé pour enregistrer le but, les notes ou le contexte supplémentaire de la catégorie</s:String>
+    <s:String x:Key="Lang.Category.Detail">Détails</s:String>
+    <s:String x:Key="Lang.Category.DetailTooltip">Voir les détails de la catégorie</s:String>
+    <s:String x:Key="Lang.Category.DetailTitle">Détails de Catégorie</s:String>
+    <s:String x:Key="Lang.Category.DetailPrompt">Voir les informations de catégorie :</s:String>
+    <s:String x:Key="Lang.Category.AccountCountLabel">Nombre de Comptes</s:String>
+    <s:String x:Key="Lang.Category.NoDescription">Aucune description</s:String>
+    <s:String x:Key="Lang.Category.SortOrderLabel">Ordre de Tri</s:String>
+    <s:String x:Key="Lang.Category.MultiSelect">Sélection Multiple</s:String>
+    <s:String x:Key="Lang.Category.CancelMultiSelect">Annuler la Sélection Multiple</s:String>
+    <s:String x:Key="Lang.Category.Merge">Fusionner</s:String>
+    <s:String x:Key="Lang.Category.MergeTitle">Fusionner les Catégories</s:String>
+    <s:String x:Key="Lang.Category.MergePrompt">Sélectionnez la catégorie cible à conserver. Les comptes des autres catégories seront déplacés vers la cible et les catégories sources seront supprimées.</s:String>
+    <s:String x:Key="Lang.Category.SelectedCategories">Catégories Sélectionnées</s:String>
+    <s:String x:Key="Lang.Category.MergeTarget">Catégorie Cible (Conserver)</s:String>
+    <s:String x:Key="Lang.Category.MergeHint">Tous les comptes seront déplacés vers cette catégorie, les autres catégories seront supprimées</s:String>
+    <s:String x:Key="Lang.Category.MergePreview">Aperçu de la Fusion</s:String>
+    <s:String x:Key="Lang.Category.MergeSelectTarget">Veuillez sélectionner la catégorie cible</s:String>
+    <s:String x:Key="Lang.Category.MergePreviewFormat">Fusionner {1} comptes dans "{0}", supprimer {2} catégories</s:String>
+    <s:String x:Key="Lang.Category.MergeCategories">Fusionner les Catégories</s:String>
+    <s:String x:Key="Lang.Category.ViewProperties">Voir les Propriétés</s:String>
+
+    <!-- Logs -->
+    <s:String x:Key="Lang.Logs.Title">Journaux d'opération</s:String>
+    <s:String x:Key="Lang.Logs.Dev">Les journaux d'opération sont en cours de développement...</s:String>
+    <s:String x:Key="Lang.Logs.TotalPrefix">Total </s:String>
+    <s:String x:Key="Lang.Logs.TotalSuffix"> journaux</s:String>
+    <s:String x:Key="Lang.Logs.SelectAll">Tout sélectionner</s:String>
+    <s:String x:Key="Lang.Logs.Export">Exporter les journaux</s:String>
+    <s:String x:Key="Lang.Logs.DeleteSelected">Supprimer la sélection</s:String>
+    <s:String x:Key="Lang.Logs.ClearAll">Effacer tous les journaux</s:String>
+    <s:String x:Key="Lang.Logs.CancelSelection">Annuler la sélection</s:String>
+    <s:String x:Key="Lang.Logs.PageSizeLabel">Par page :</s:String>
+    <s:String x:Key="Lang.Logs.PageSizeAll">Tout</s:String>
+    <s:String x:Key="Lang.Logs.Column.Select">Sélection</s:String>
+    <s:String x:Key="Lang.Logs.Column.Time">Heure</s:String>
+    <s:String x:Key="Lang.Logs.Column.Operation">Opération</s:String>
+    <s:String x:Key="Lang.Logs.Column.Target">Cible</s:String>
+    <s:String x:Key="Lang.Logs.Column.Details">Détails</s:String>
+    <s:String x:Key="Lang.Logs.ExportDialogTitle">Exporter les journaux d'opération</s:String>
+    <s:String x:Key="Lang.Logs.ExportFileTypeCsv">Fichier CSV</s:String>
+    <s:String x:Key="Lang.Logs.ExportCsvHeader">Heure,Opération,Cible,Détails</s:String>
+    <s:String x:Key="Lang.Logs.ExportSuccess">Export réussi !</s:String>
+    <s:String x:Key="Lang.Logs.ExportFailedFormat">Échec de l'export : {0}</s:String>
+    <s:String x:Key="Lang.Logs.Op.AddAccount">Ajouter un compte</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateAccount">Mettre à jour le compte</s:String>
+    <s:String x:Key="Lang.Logs.Op.DeleteAccount">Supprimer le compte</s:String>
+    <s:String x:Key="Lang.Logs.Op.ImportBackup">Importer une sauvegarde</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateSettings">Mettre à jour les paramètres</s:String>
+    <s:String x:Key="Lang.Logs.Op.AddCategory">Ajouter une catégorie</s:String>
+    <s:String x:Key="Lang.Logs.Op.DeleteCategory">Supprimer la catégorie</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateCategory">Mettre à jour la catégorie</s:String>
+    <s:String x:Key="Lang.Logs.Op.MergeCategory">Fusionner la catégorie</s:String>
+    <s:String x:Key="Lang.Logs.Op.ExportBackup">Exporter la sauvegarde</s:String>
+    <s:String x:Key="Lang.Logs.Op.TestLog">Journal de test</s:String>
+
+    <!-- Mode d'affichage des journaux -->
+    <s:String x:Key="Lang.Logs.ShowRawFormat">Afficher le format brut des journaux</s:String>
+    <s:String x:Key="Lang.Logs.ShowRawFormatHint">Affiche les données techniques brutes pour le débogage et l'analyse</s:String>
+    <s:String x:Key="Lang.Logs.Target.Security">Paramètres de sécurité</s:String>
+    <s:String x:Key="Lang.Logs.Target.Settings">Paramètres de l'application</s:String>
+    <s:String x:Key="Lang.Logs.Target.Issuer">Émetteur</s:String>
+    <s:String x:Key="Lang.Logs.Target.AccountName">Compte</s:String>
+    <s:String x:Key="Lang.Logs.Details.RotateSecrets">Tous les secrets de comptes ont été rechiffrés</s:String>
+    <s:String x:Key="Lang.Logs.Details.Theme">Thème</s:String>
+    <s:String x:Key="Lang.Logs.Details.Language">Langue</s:String>
+    <s:String x:Key="Lang.Logs.Details.RefreshPeriod">Période de rafraîchissement</s:String>
+    <s:String x:Key="Lang.Logs.Details.AutoLockMinutes">Temps de verrouillage automatique</s:String>
+    <s:String x:Key="Lang.Logs.Details.AccountsCount">{0} comptes</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoriesCount">{0} catégories</s:String>
+    <s:String x:Key="Lang.Logs.Details.Imported">{0} comptes importés</s:String>
+    <s:String x:Key="Lang.Logs.Details.Skipped">{0} ignorés</s:String>
+    <s:String x:Key="Lang.Logs.Details.Updated">{0} mis à jour</s:String>
+    <s:String x:Key="Lang.Logs.Details.DigitsUnit"> chiffres</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoryName">Catégorie renommée</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoryDescription">Description mise à jour</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoryNameAndDescription">Renommée et description mise à jour</s:String>
+
+    <!-- Security -->
+    <s:String x:Key="Lang.Security.Title">Paramètres de sécurité</s:String>
+    <s:String x:Key="Lang.Security.Desc">Les paramètres de sécurité incluent : mot de passe, verrouillage, presse-papiers, etc.</s:String>
+    <s:String x:Key="Lang.Security.AppLock">Activer le verrouillage de l'application</s:String>
+    <s:String x:Key="Lang.Security.IdleAutoLock">Verrouillage automatique en cas d'inactivité</s:String>
+    <s:String x:Key="Lang.Security.AutoLockMinutes">Verrouiller après</s:String>
+    <s:String x:Key="Lang.Security.MinutesUnit">minutes</s:String>
+    <s:String x:Key="Lang.Security.IdleAutoLockUnsupported">La détection globale d'inactivité n'est pas prise en charge sur cette plateforme.</s:String>
+    <s:String x:Key="Lang.Security.AppLocked">Application verrouillée</s:String>
+    <s:String x:Key="Lang.Security.EnterMasterPassword">Veuillez saisir le mot de passe maître pour déverrouiller</s:String>
+    <s:String x:Key="Lang.Security.PasswordDialogTitle">Mot de passe maître</s:String>
+    <s:String x:Key="Lang.Security.PasswordDialogPrompt">Saisir le mot de passe maître</s:String>
+    <s:String x:Key="Lang.Security.Unlock">Déverrouiller</s:String>
+    <s:String x:Key="Lang.Security.PasswordIncorrect">Mot de passe incorrect</s:String>
+    <s:String x:Key="Lang.Security.SetMasterPasswordTitle">Définir le mot de passe maître</s:String>
+    <s:String x:Key="Lang.Security.NewPasswordPrompt">Nouveau mot de passe</s:String>
+    <s:String x:Key="Lang.Security.ConfirmPasswordPrompt">Confirmer le nouveau mot de passe</s:String>
+    <s:String x:Key="Lang.Security.PasswordEmpty">Le mot de passe ne peut pas être vide</s:String>
+    <s:String x:Key="Lang.Security.PasswordMismatch">Les mots de passe ne correspondent pas</s:String>
+    <s:String x:Key="Lang.Security.RemoveMasterPasswordTitle">Supprimer le mot de passe maître</s:String>
+    <s:String x:Key="Lang.Security.CurrentPasswordPrompt">Saisir le mot de passe maître actuel</s:String>
+    <s:String x:Key="Lang.Security.ClipboardClearEnabled">Effacer automatiquement le code du presse-papiers</s:String>
+    <s:String x:Key="Lang.Security.ClipboardClearDelay">Délai d'effacement</s:String>
+    <s:String x:Key="Lang.Security.ClipboardClearHint">En raison des limitations du système, la suppression des codes de vérification du presse-papiers n'est pas prise en charge.</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshots">Bloquer les captures d'écran</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshotsHintSupported">Activé : les captures/enregistrements apparaîtront en noir (Windows 10 2004+).</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshotsHintUnsupported">Non pris en charge sur cette version de Windows (Windows 10 2004+ requis).</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshotsHintFailedFormat">Échec de l’activation (erreur : {0}).</s:String>
+
+    <s:String x:Key="Lang.Security.SetPasswordFailed">Échec de la définition du mot de passe</s:String>
+    <s:String x:Key="Lang.Security.RemovePasswordFailed">Échec de la suppression du mot de passe</s:String>
+    <s:String x:Key="Lang.Security.CannotRemovePasswordWithLockEnabled">Veuillez désactiver toutes les fonctions de verrouillage avant de supprimer le mot de passe principal</s:String>
+    <s:String x:Key="Lang.Security.ConfirmPasswordTitle">Confirmer le mot de passe</s:String>
+    <s:String x:Key="Lang.Security.EnterPasswordToEnableLock">Entrez le mot de passe principal pour activer la fonction de verrouillage</s:String>
+    <s:String x:Key="Lang.Security.EnterPasswordToDisableLock">Entrez le mot de passe principal pour désactiver la fonction de verrouillage</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordSection">Gestion du mot de passe principal</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordStatus">État du mot de passe principal</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordSet">Défini</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordNotSet">Non défini</s:String>
+    <s:String x:Key="Lang.Security.SetMasterPassword">Définir le mot de passe principal</s:String>
+    <s:String x:Key="Lang.Security.RemoveMasterPassword">Supprimer le mot de passe principal</s:String>
+    <s:String x:Key="Lang.Security.SecurityNotice">Avis de sécurité</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordWarning">Aucun mot de passe principal défini</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordDesc1">• Vos données sont stockées dans une base de données locale</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordDesc2">• Toute personne ayant accès à votre appareil pourrait lire les données</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordDesc3">• Recommandé uniquement pour les appareils personnels</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordInfo">Mot de passe principal défini</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordDesc1">• Vos données sont chiffrées avec le mot de passe principal</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordDesc2">• Même en cas de vol de la base de données, le déchiffrement est impossible</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordDesc3">• Recommandé pour les appareils partagés ou les besoins de haute sécurité</s:String>
+
+    <!-- Backup -->
+    <s:String x:Key="Lang.Backup.Title">Sauvegarde et restauration</s:String>
+    <s:String x:Key="Lang.Backup.PageTitle">Sauvegarde et restauration</s:String>
+    <s:String x:Key="Lang.Backup.Export">Exporter les données</s:String>
+    <s:String x:Key="Lang.Backup.Import">Importer les données</s:String>
+    <s:String x:Key="Lang.Backup.DataStatistics">📊 Statistiques actuelles</s:String>
+    <s:String x:Key="Lang.Backup.AccountCount">Nombre de comptes</s:String>
+    <s:String x:Key="Lang.Backup.CategoryCount">Nombre de catégories</s:String>
+    <s:String x:Key="Lang.Backup.LastBackupTime">Dernière sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.NeverBackedUp">Jamais sauvegardé</s:String>
+    <s:String x:Key="Lang.Backup.Operations">Opérations de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.ExportHint">Exporter toutes les données dans un fichier de sauvegarde chiffré, avec possibilité d'inclure les paramètres et les journaux</s:String>
+    <s:String x:Key="Lang.Backup.ImportHint">Restaurer les données depuis un fichier de sauvegarde, prend en charge le mode fusion ou écrasement</s:String>
+    
+    <!-- Export Dialog -->
+    <s:String x:Key="Lang.Backup.ExportTitle">Exporter la sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.ExportDescription">Exporter vos données de compte 2FA dans un fichier de sauvegarde chiffré</s:String>
+    <s:String x:Key="Lang.Backup.BackupPassword">Mot de passe de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.PasswordWatermark">Entrez le mot de passe de sauvegarde (au moins 8 caractères)</s:String>
+    <s:String x:Key="Lang.Backup.PasswordHint">Recommandé : Utilisez un mot de passe fort avec majuscules, minuscules, chiffres et symboles, au moins 8 caractères</s:String>
+    <s:String x:Key="Lang.Backup.ConfirmPassword">Confirmer le mot de passe</s:String>
+    <s:String x:Key="Lang.Backup.ConfirmPasswordWatermark">Entrez à nouveau le mot de passe de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.ExportOptions">Options d'exportation</s:String>
+    <s:String x:Key="Lang.Backup.IncludeSettings">Inclure les paramètres de l'application</s:String>
+    <s:String x:Key="Lang.Backup.IncludeLogs">Inclure les journaux d'opérations</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarningTitle">Avertissement de sécurité</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarning1">• Conservez votre mot de passe de sauvegarde en sécurité, les données ne peuvent pas être récupérées en cas de perte</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarning2">• Stockez le fichier de sauvegarde et le mot de passe séparément</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarning3">• Ne transmettez pas les fichiers de sauvegarde via des canaux non sécurisés</s:String>
+    <s:String x:Key="Lang.Backup.PasswordEmpty">Le mot de passe de sauvegarde ne peut pas être vide</s:String>
+    <s:String x:Key="Lang.Backup.PasswordTooShort">Le mot de passe doit contenir au moins 8 caractères</s:String>
+    <s:String x:Key="Lang.Backup.PasswordMismatch">Les mots de passe ne correspondent pas</s:String>
+    
+    <!-- Import Dialog -->
+    <s:String x:Key="Lang.Backup.ImportTitle">Importer la sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.ImportDescription">Restaurer vos données de compte 2FA depuis un fichier de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.BackupInfo">Informations de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.BackupTime">Heure de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.AppVersion">Version de l'application</s:String>
+    <s:String x:Key="Lang.Backup.EnterPasswordWatermark">Entrez le mot de passe de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.ImportMode">Mode d'importation</s:String>
+    <s:String x:Key="Lang.Backup.MergeMode">Mode fusion (Recommandé)</s:String>
+    <s:String x:Key="Lang.Backup.MergeModeDesc">Conserver les données existantes, ajouter de nouvelles données depuis la sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteMode">Mode écrasement</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteModeDesc">Effacer les données existantes, remplacer complètement par les données de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.ConflictStrategy">Stratégie de conflit</s:String>
+    <s:String x:Key="Lang.Backup.ConflictSkip">Ignorer les doublons</s:String>
+    <s:String x:Key="Lang.Backup.ConflictOverwrite">Écraser les existants</s:String>
+    <s:String x:Key="Lang.Backup.ConflictRename">Conserver les deux (Renommer)</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteWarningTitle">Avertissement</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteWarning">Le mode écrasement supprimera toutes les données existantes ! Cette action ne peut pas être annulée, veuillez procéder avec prudence.</s:String>
+    
+    <!-- Rappel Important -->
+    <s:String x:Key="Lang.Backup.ImportantReminder">Rappel Important</s:String>
+    <s:String x:Key="Lang.Backup.Reminder1">• Conservez vos fichiers de sauvegarde et mots de passe en sécurité, de préférence dans un emplacement hors ligne sécurisé</s:String>
+    <s:String x:Key="Lang.Backup.Reminder2">• Ne téléchargez pas de fichiers de sauvegarde vers un stockage cloud non fiable ou des réseaux publics</s:String>
+    <s:String x:Key="Lang.Backup.Reminder3">• Créez des sauvegardes régulièrement, au moins une fois par mois est recommandé</s:String>
+    <s:String x:Key="Lang.Backup.Reminder4">• Les fichiers de sauvegarde contiennent des informations sensibles, ne les transmettez pas via des canaux non sécurisés</s:String>
+    
+    <!-- Backup Messages -->
+    <s:String x:Key="Lang.Backup.SaveBackupFileTitle">Enregistrer le fichier de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.SelectBackupFileTitle">Sélectionner le fichier de sauvegarde</s:String>
+    <s:String x:Key="Lang.Backup.ExportSuccessTitle">Export réussi</s:String>
+    <s:String x:Key="Lang.Backup.ExportSuccessMessage">Fichier de sauvegarde enregistré dans :</s:String>
+    <s:String x:Key="Lang.Backup.ExportFailedTitle">Échec de l'export</s:String>
+    <s:String x:Key="Lang.Backup.ExportFailedMessage">Erreur lors de l'export de la sauvegarde :</s:String>
+    <s:String x:Key="Lang.Backup.ImportSuccessTitle">Import réussi</s:String>
+    <s:String x:Key="Lang.Backup.ImportCompletedMessage">Import terminé !</s:String>
+    <s:String x:Key="Lang.Backup.ImportFailedTitle">Échec de l'import</s:String>
+    <s:String x:Key="Lang.Backup.ImportFailedMessage">Erreur lors de l'import de la sauvegarde :</s:String>
+    <s:String x:Key="Lang.Backup.InvalidBackupFileMessage">Format de fichier de sauvegarde invalide</s:String>
+    <s:String x:Key="Lang.Backup.AccountsLabel">Comptes :</s:String>
+    <s:String x:Key="Lang.Backup.CategoriesLabel">Catégories :</s:String>
+    <s:String x:Key="Lang.Backup.ImportedLabel">importés</s:String>
+    <s:String x:Key="Lang.Backup.UpdatedLabel">mis à jour</s:String>
+    <s:String x:Key="Lang.Backup.SkippedLabel">ignorés</s:String>
+    <s:String x:Key="Lang.Backup.DeletedLabel">supprimés</s:String>
+    <s:String x:Key="Lang.Backup.ConfirmButton">OK</s:String>
+
+    <!-- About -->
+    <s:String x:Key="Lang.About.Title">À propos</s:String>
+    <s:String x:Key="Lang.About.AppName">Authentificateur 2FA</s:String>
+    <s:String x:Key="Lang.About.Version">Version :</s:String>
+    <s:String x:Key="Lang.About.License">Licence : MIT</s:String>
+    
+    <!-- Settings -->
+    <s:String x:Key="Lang.Settings.Title">Paramètres</s:String>
+    <s:String x:Key="Lang.Settings.AppInfo">Info appli</s:String>
+    <s:String x:Key="Lang.Settings.NativeAOT">Native AOT :</s:String>
+    <s:String x:Key="Lang.Settings.Enabled">Activé</s:String>
+    <s:String x:Key="Lang.Settings.Language">Changer de langue</s:String>
+    <s:String x:Key="Lang.Settings.Theme">Thème</s:String>
+    <s:String x:Key="Lang.Theme.Light">Clair</s:String>
+    <s:String x:Key="Lang.Theme.Dark">Sombre</s:String>
+    <s:String x:Key="Lang.Wizard.Back">Retour</s:String>
+    <s:String x:Key="Lang.Wizard.Next">Suivant</s:String>
+    <s:String x:Key="Lang.Wizard.Finish">Commencer</s:String>
+    <s:String x:Key="Lang.Wizard.Welcome">Bienvenue dans 2FA Authenticator</s:String>
+    <s:String x:Key="Lang.Wizard.Step1Title">Choisir la langue</s:String>
+    <s:String x:Key="Lang.Wizard.Step1Desc">Veuillez sélectionner votre langue préférée</s:String>
+    <s:String x:Key="Lang.Wizard.Step2Title">Choisir le thème</s:String>
+    <s:String x:Key="Lang.Wizard.Step2Desc">Veuillez sélectionner votre style d'interface préféré</s:String>
+    
+    <!-- Dialogs -->
+    <s:String x:Key="Lang.Cancel">Annuler</s:String>
+    <s:String x:Key="Lang.Save">Enregistrer</s:String>
+
+    <!-- Time Settings -->
+    <s:String x:Key="Lang.Nav.TimeSettings">Paramètres de Temps</s:String>
+    <s:String x:Key="Lang.TimeSettings.Title">Paramètres de Temps</s:String>
+    <s:String x:Key="Lang.TimeSettings.TimeSource">Source de Temps</s:String>
+    <s:String x:Key="Lang.TimeSettings.TimeSourceDesc">Sélectionnez la source de temps pour générer les codes de vérification. Un temps précis est crucial pour les codes TOTP.</s:String>
+    <s:String x:Key="Lang.TimeSettings.UseSystemTime">Utiliser l'Heure Système</s:String>
+    <s:String x:Key="Lang.TimeSettings.UseNtpTime">Utiliser l'Heure Réseau NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer">Serveur NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServerDesc">Sélectionnez ou personnalisez le serveur de temps NTP. Choisissez un serveur géographiquement plus proche pour une meilleure synchronisation.</s:String>
+    <s:String x:Key="Lang.TimeSettings.CustomServer">Adresse de Serveur Personnalisée</s:String>
+    <s:String x:Key="Lang.TimeSettings.AddServer">Ajouter</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestConnection">Tester la Connexion</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestSelectServer">Veuillez sélectionner un serveur NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestEnterServer">Veuillez saisir l'adresse du serveur NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.Testing">Test de connexion...</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestFailed">Échec du test. Veuillez vérifier l'adresse du serveur ou la connexion réseau.</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestSuccessFormat">Connexion réussie !&#10;Heure réseau : {0} UTC&#10;Décalage horaire : {1} secondes</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestErrorFormat">Échec du test : {0}</s:String>
+    <s:String x:Key="Lang.TimeSettings.ImportantNote">Notes Importantes</s:String>
+    <s:String x:Key="Lang.TimeSettings.Note1">• Les codes TOTP sont basés sur le temps, un temps inexact causera des échecs de vérification</s:String>
+    <s:String x:Key="Lang.TimeSettings.Note2">• L'utilisation du temps NTP garantit la précision mais nécessite une connexion réseau</s:String>
+    <s:String x:Key="Lang.TimeSettings.Note3">• Testez la connexion NTP régulièrement pour assurer une synchronisation temporelle appropriée</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.WindowsTime">Windows Time (Recommended)</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Aliyun">Aliyun NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Tencent">Tencent Cloud NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Google">Google NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Cloudflare">Cloudflare NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Custom">Serveur Personnalisé</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.CustomPrefix">Personnalisé</s:String>
+    <s:String x:Key="Lang.DeleteConfirmTitle">Supprimer le compte</s:String>
+    <s:String x:Key="Lang.DeleteConfirmMessage">Êtes-vous sûr de vouloir supprimer ce compte ? Cette action est irréversible.</s:String>
+    <s:String x:Key="Lang.DeleteSelectedConfirmTitle">Supprimer les comptes sélectionnés</s:String>
+    <s:String x:Key="Lang.DeleteSelectedConfirmMessage">Êtes-vous sûr de vouloir supprimer {0} comptes sélectionnés ? Cette action est irréversible.</s:String>
+    <s:String x:Key="Lang.MultiSelect">Sélection multiple</s:String>
+    <s:String x:Key="Lang.DeleteSuccessFormat">{0} supprimé avec succès</s:String>
+    <s:String x:Key="Lang.CopySuccess">Copié</s:String>
+
+    <!-- Unified Add Account Dialog -->
+    <s:String x:Key="Lang.AddAccount.Tab.Manual">Saisie manuelle</s:String>
+    <s:String x:Key="Lang.AddAccount.Tab.Url">Import URL</s:String>
+    <s:String x:Key="Lang.AddAccount.Tab.QrCode">Import QR Code</s:String>
+    <s:String x:Key="Lang.AddAccount.ManualDesc">Saisir manuellement les informations du compte et la clé secrète</s:String>
+    <s:String x:Key="Lang.AddAccount.UrlDesc">Collez l'URL du protocole otpauth:// pour un import rapide</s:String>
+    <s:String x:Key="Lang.AddAccount.QrDesc">Importer des comptes à partir d'images de QR code</s:String>
+    <s:String x:Key="Lang.AddAccount.NameHint">Ex : Mon compte</s:String>
+    <s:String x:Key="Lang.AddAccount.SecretHint">Clé secrète au format Base32</s:String>
+    <s:String x:Key="Lang.AddAccount.CategoryHint">Sélectionner une catégorie (optionnel)</s:String>
+    <s:String x:Key="Lang.AddAccount.OtpAuthUrl">URL d'authentification OTP</s:String>
+    <s:String x:Key="Lang.AddAccount.UrlHint">Collez l'URL commençant par otpauth://</s:String>
+    <s:String x:Key="Lang.AddAccount.ParsedData">Résultat de l'analyse</s:String>
+
+    <!-- Service Provider Templates -->
+    <s:String x:Key="Lang.Nav.ServiceProvider">Fournisseurs</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Title">Modèles de fournisseurs</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Add">Ajouter un fournisseur</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Name">Nom du fournisseur</s:String>
+    <s:String x:Key="Lang.ServiceProvider.NamePlaceholder">Entrez le nom du fournisseur</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Icon">Icône</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Description">Description</s:String>
+    <s:String x:Key="Lang.ServiceProvider.DescriptionPlaceholder">Entrez une description (optionnel)</s:String>
+    <s:String x:Key="Lang.ServiceProvider.UsageCount">{0} comptes</s:String>
+    <s:String x:Key="Lang.ServiceProvider.BuiltIn">Intégré</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SelectIcon">Sélectionner une icône</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SelectHint">Sélectionner un fournisseur (optionnel)</s:String>
+    <s:String x:Key="Lang.ServiceProvider.CustomIssuerHint">Entrez un nom de fournisseur personnalisé</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Custom">Fournisseur personnalisé</s:String>
+    <s:String x:Key="Lang.ServiceProvider.NoIcon">Pas d'icône</s:String>
+    <s:String x:Key="Lang.ServiceProvider.UploadSvg">Télécharger un fichier SVG...</s:String>
+    <s:String x:Key="Lang.ServiceProvider.CurrentIcon">Icône actuelle</s:String>
+    <s:String x:Key="Lang.ServiceProvider.UploadedIcon">Icône téléchargée</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SelectSvg">Sélectionner un fichier SVG</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SvgFiles">Fichiers SVG</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SearchPlaceholder">Rechercher des fournisseurs...</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SortBy">Trier par :</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SortByName">Par nom</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SortByUsage">Par utilisation</s:String>
+    <s:String x:Key="Lang.ServiceProvider.EditTitle">Modifier le fournisseur</s:String>
+    <s:String x:Key="Lang.ServiceProvider.CannotDeleteBuiltIn">Les fournisseurs intégrés ne peuvent pas être supprimés</s:String>
+    <s:String x:Key="Lang.ServiceProvider.DeleteConfirmTitle">Supprimer le fournisseur</s:String>
+    <s:String x:Key="Lang.ServiceProvider.DeleteConfirmMessage">Voulez-vous vraiment supprimer le fournisseur « {0} » ?</s:String>
+    <s:String x:Key="Lang.Logs.Op.AddServiceProvider">Fournisseur ajouté</s:String>
+    <s:String x:Key="Lang.Logs.Op.DeleteServiceProvider">Fournisseur supprimé</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateServiceProvider">Fournisseur mis à jour</s:String>
+
+    <!-- Account Export -->
+    <s:String x:Key="Lang.Export.Title">Exporter le compte</s:String>
+    <s:String x:Key="Lang.Export.Export">Exporter</s:String>
+    <s:String x:Key="Lang.Export.ModeTitle">Mode d'exportation</s:String>
+    <s:String x:Key="Lang.Export.SingleMode">Exporter un seul compte</s:String>
+    <s:String x:Key="Lang.Export.SingleModeDesc">Exporter un compte, QR code ou format URL</s:String>
+    <s:String x:Key="Lang.Export.BatchMode">Exportation par lots</s:String>
+    <s:String x:Key="Lang.Export.BatchModeDesc">Exporter plusieurs comptes, format QR code uniquement</s:String>
+    <s:String x:Key="Lang.Export.FormatTitle">Format d'exportation</s:String>
+    <s:String x:Key="Lang.Export.QrCodeFormat">QR Code</s:String>
+    <s:String x:Key="Lang.Export.QrCodeFormatDesc">Générer une image QR code pour un scan facile</s:String>
+    <s:String x:Key="Lang.Export.UrlFormat">Lien URL</s:String>
+    <s:String x:Key="Lang.Export.UrlFormatDesc">Générer un lien protocole otpauth://</s:String>
+    <s:String x:Key="Lang.Export.BatchOnlyQrCode">Note : L'exportation par lots ne prend en charge que le format QR code</s:String>
+    <s:String x:Key="Lang.Export.SelectAccounts">Sélectionner les comptes à exporter</s:String>
+    <s:String x:Key="Lang.Export.Notice">Avis de sécurité</s:String>
+    <s:String x:Key="Lang.Export.Notice1">• Les QR codes et URLs exportés contiennent des clés de compte, conservez-les en sécurité</s:String>
+    <s:String x:Key="Lang.Export.Notice2">• Ne partagez pas les fichiers exportés et ne les téléchargez pas sur des réseaux publics</s:String>
+    <s:String x:Key="Lang.Export.Notice3">• Il est recommandé de stocker les exportations dans des emplacements hors ligne sécurisés</s:String>
+    <s:String x:Key="Lang.Export.NoAccountSelected">Veuillez sélectionner au moins un compte</s:String>
+    <s:String x:Key="Lang.Export.Generating">Génération en cours...</s:String>
+    <s:String x:Key="Lang.Export.Success">Exportation réussie !</s:String>
+    <s:String x:Key="Lang.Export.Failed">Échec de l'exportation</s:String>
+    <s:String x:Key="Lang.Export.SaveQrCode">Enregistrer le QR code</s:String>
+    <s:String x:Key="Lang.Export.SaveUrl">Enregistrer l'URL</s:String>
+    <s:String x:Key="Lang.Export.SelectFolder">Sélectionner le dossier de destination</s:String>
+    <s:String x:Key="Lang.Export.PngImage">Image PNG</s:String>
+    <s:String x:Key="Lang.Export.TextFile">Fichier texte</s:String>
+    <s:String x:Key="Lang.Export.BatchSuccess">{0}/{1} comptes exportés avec succès</s:String>
+    <s:String x:Key="Lang.ExportAccount">Exporter le compte</s:String>
+
+    <!-- Context Menu & Dialog -->
+    <s:String x:Key="Lang.Dialog.AccountDetails">Détails du compte</s:String>
+    <s:String x:Key="Lang.Dialog.MoveToCategory">Déplacer vers la catégorie</s:String>
+    <s:String x:Key="Lang.NotSet">Non défini</s:String>
+    <s:String x:Key="Lang.Pin">Épingler/Désépingler</s:String>
+    <s:String x:Key="Lang.MoveToCategory">Déplacer vers la catégorie</s:String>
+    <s:String x:Key="Lang.Details">Voir les détails</s:String>
+    <s:String x:Key="Lang.Close">Fermer</s:String>
+    <s:String x:Key="Lang.Confirm">Confirmer</s:String>
+    <s:String x:Key="Lang.RemoveFromCategory">Retirer de la catégorie</s:String>
+
+    <!-- Messages d'importation de sauvegarde -->
+    <s:String x:Key="Lang.Backup.Import.SignatureError">La vérification de la signature a échoué, le fichier a peut-être été altéré ou le mot de passe est incorrect</s:String>
+    <s:String x:Key="Lang.Backup.Import.DecryptError">Échec du déchiffrement, mot de passe incorrect</s:String>
+    <s:String x:Key="Lang.Backup.Import.DataFormatError">Format des données de sauvegarde incorrect</s:String>
+    <s:String x:Key="Lang.Backup.Import.RenameSuffix"> (Importé)</s:String>
+    <s:String x:Key="Lang.Backup.Import.FailedFormat">Échec de l'importation : {0}</s:String>
+</ResourceDictionary>

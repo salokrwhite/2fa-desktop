@@ -1,0 +1,296 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        xmlns:converters="clr-namespace:TwoFactorAuth.Converters"
+        x:Class="TwoFactorAuth.Views.Dialogs.UnifiedAddAccountDialog"
+        x:DataType="viewmodels:UnifiedAddAccountViewModel"
+        Width="680"
+        Height="620"
+        Title="{DynamicResource Lang.Dialog.AddAccount}"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <converters:SvgToBitmapConverter x:Key="SvgToBitmapConverter"/>
+    </Window.Resources>
+
+    <Window.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="20,12"/>
+        </Style>
+        <Style Selector="TabItem:selected">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel Margin="0">
+        <Border DockPanel.Dock="Bottom" 
+                Background="{DynamicResource SemiColorBackground1}" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                BorderThickness="0,1,0,0"
+                Padding="20,16">
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="{DynamicResource Lang.Cancel}" 
+                        Click="OnCancelClick" 
+                        Margin="0,0,10,0" 
+                        Width="100"/>
+                <Button Content="{DynamicResource Lang.Save}" 
+                        Click="OnSaveClick" 
+                        Classes="Primary" 
+                        Width="100"/>
+            </WrapPanel>
+        </Border>
+
+        <TabControl SelectedIndex="{Binding SelectedTabIndex}" Margin="0">
+            <TabItem Header="{DynamicResource Lang.AddAccount.Tab.Manual}">
+                <ScrollViewer>
+                    <StackPanel Margin="24,20" Spacing="14">
+                        <TextBlock Text="{DynamicResource Lang.AddAccount.ManualDesc}" 
+                                   Opacity="0.7" 
+                                   TextWrapping="Wrap"
+                                   Margin="0,0,0,8"/>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{DynamicResource Lang.AccountName}" FontWeight="Medium"/>
+                            <TextBox Text="{Binding Name}" 
+                                     Watermark="{DynamicResource Lang.AddAccount.NameHint}"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{DynamicResource Lang.Issuer}" FontWeight="Medium"/>
+                            <ComboBox ItemsSource="{Binding ServiceProviders}"
+                                      SelectedItem="{Binding SelectedServiceProvider}"
+                                      HorizontalAlignment="Stretch"
+                                      PlaceholderText="{DynamicResource Lang.ServiceProvider.SelectHint}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <Image Width="16" Height="16"
+                                                   Source="{Binding Converter={StaticResource SvgToBitmapConverter}}"
+                                                   IsVisible="{Binding IconPath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBox Text="{Binding Issuer}" 
+                                     Watermark="{DynamicResource Lang.ServiceProvider.CustomIssuerHint}"
+                                     IsVisible="{Binding ShowIssuerInput}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{DynamicResource Lang.Secret}" FontWeight="Medium"/>
+                            <TextBox Text="{Binding Secret}" 
+                                     Watermark="{DynamicResource Lang.AddAccount.SecretHint}"
+                                     FontFamily="Consolas,Courier New,monospace"/>
+                        </StackPanel>
+
+                        <Grid ColumnDefinitions="*,12,*" Margin="0,4,0,0">
+                            <StackPanel Grid.Column="0" Spacing="6">
+                                <TextBlock Text="{DynamicResource Lang.Type}" FontWeight="Medium"/>
+                                <ComboBox ItemsSource="{Binding OtpTypes}" 
+                                          SelectedItem="{Binding Type}" 
+                                          HorizontalAlignment="Stretch" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Spacing="6">
+                                <TextBlock Text="{DynamicResource Lang.Category.Label}" FontWeight="Medium"/>
+                                <ComboBox ItemsSource="{Binding Categories}" 
+                                          SelectedItem="{Binding SelectedCategory}" 
+                                          HorizontalAlignment="Stretch"
+                                          PlaceholderText="{DynamicResource Lang.AddAccount.CategoryHint}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*,12,*">
+                            <StackPanel Grid.Column="0" Spacing="6">
+                                <TextBlock Text="{DynamicResource Lang.Digits}" FontWeight="Medium"/>
+                                <TextBox Text="{Binding Digits}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Spacing="6">
+                                <TextBlock Text="{DynamicResource Lang.Period}" FontWeight="Medium"/>
+                                <TextBox Text="{Binding Period}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{DynamicResource Lang.AddAccount.Tab.Url}">
+                <ScrollViewer>
+                    <StackPanel Margin="24,20" Spacing="14">
+                        <TextBlock Text="{DynamicResource Lang.AddAccount.UrlDesc}" 
+                                   Opacity="0.7" 
+                                   TextWrapping="Wrap"
+                                   Margin="0,0,0,8"/>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{DynamicResource Lang.AddAccount.OtpAuthUrl}" FontWeight="Medium"/>
+                            <TextBox Text="{Binding OtpAuthUrl}" 
+                                     Watermark="{DynamicResource Lang.AddAccount.UrlHint}"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     MinHeight="80"/>
+                            <TextBlock Text="{Binding UrlParseStatus}" 
+                                       IsVisible="{Binding UrlParseStatus, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                       Foreground="{Binding UrlParseStatusColor}"
+                                       FontWeight="Medium"
+                                       Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <Border Background="{DynamicResource SemiColorBackground1}" 
+                                CornerRadius="8" 
+                                Padding="16"
+                                IsVisible="{Binding IsUrlValid}">
+                            <StackPanel Spacing="12">
+                                <TextBlock Text="{DynamicResource Lang.AddAccount.ParsedData}" 
+                                           FontWeight="SemiBold"
+                                           FontSize="14"/>
+                                
+                                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="8">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Lang.AccountName}" Opacity="0.7"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontWeight="Medium"/>
+                                    
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Lang.Issuer}" Opacity="0.7"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Issuer}" FontWeight="Medium"/>
+                                    
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Lang.Type}" Opacity="0.7"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Type}" FontWeight="Medium"/>
+                                    
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Lang.Digits}" Opacity="0.7"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Digits}" FontWeight="Medium"/>
+                                    
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Lang.Period}" Opacity="0.7"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Period}" FontWeight="Medium"/>
+                                </Grid>
+
+                                <StackPanel Spacing="6" Margin="0,8,0,0">
+                                    <TextBlock Text="{DynamicResource Lang.Category.Label}" FontWeight="Medium"/>
+                                    <ComboBox ItemsSource="{Binding Categories}" 
+                                              SelectedItem="{Binding SelectedCategory}" 
+                                              HorizontalAlignment="Stretch"
+                                              PlaceholderText="{DynamicResource Lang.AddAccount.CategoryHint}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{DynamicResource Lang.AddAccount.Tab.QrCode}">
+                <DockPanel Margin="0">
+                    <StackPanel DockPanel.Dock="Top" Spacing="12" Margin="20,16,20,12">
+                        <TextBlock Text="{DynamicResource Lang.AddAccount.QrDesc}" 
+                                   Opacity="0.7" 
+                                   TextWrapping="Wrap"/>
+
+                        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="{DynamicResource Lang.QrImport.SelectImages}" 
+                                    Click="OnSelectQrImagesClick" 
+                                    Margin="0,0,12,0" 
+                                    IsEnabled="{Binding !IsBusy}"/>
+                            <Button Content="{DynamicResource Lang.QrImport.Clear}" 
+                                    Click="OnClearQrClick" 
+                                    Margin="0,0,12,0" 
+                                    IsEnabled="{Binding !IsBusy}"/>
+                            <TextBlock Text="{Binding QrSummaryText}" 
+                                       VerticalAlignment="Center" 
+                                       Opacity="0.7"/>
+                        </WrapPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{DynamicResource Lang.Category.Label}" FontWeight="Medium"/>
+                            <ComboBox Width="220"
+                                      HorizontalAlignment="Left"
+                                      ItemsSource="{Binding Categories}"
+                                      SelectedItem="{Binding SelectedCategory}"
+                                      IsEnabled="{Binding !IsBusy}"
+                                      PlaceholderText="{DynamicResource Lang.AddAccount.CategoryHint}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <ProgressBar IsIndeterminate="True" Height="3" IsVisible="{Binding IsBusy}"/>
+                        <TextBlock Text="{Binding QrStatusText}" 
+                                   IsVisible="{Binding QrStatusText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                   Foreground="Red"/>
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding QrItems}"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              CanUserResizeColumns="True"
+                              GridLinesVisibility="None"
+                              HeadersVisibility="Column"
+                              SelectionMode="Single"
+                              Focusable="False"
+                              Margin="20,0,20,12">
+                        <DataGrid.Styles>
+                            <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+                                <Setter Property="Fill" Value="Transparent"/>
+                            </Style>
+                            <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+                                <Setter Property="Fill" Value="{DynamicResource SemiColorBackground2}"/>
+                            </Style>
+                        </DataGrid.Styles>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="60" MinWidth="60">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
+                                                  IsEnabled="{Binding CanSelect}" 
+                                                  HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.Issuer}" Width="*" MinWidth="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Issuer}" Margin="8,0" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.AccountName}" Width="*" MinWidth="140">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.Status}" Width="Auto" MinWidth="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Status}" 
+                                                   Margin="8,0" 
+                                                   VerticalAlignment="Center" 
+                                                   ToolTip.Tip="{Binding StatusDetails}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

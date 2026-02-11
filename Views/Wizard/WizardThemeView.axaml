@@ -1,0 +1,84 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TwoFactorAuth.ViewModels"
+             xmlns:converters="using:TwoFactorAuth.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TwoFactorAuth.Views.Wizard.WizardThemeView"
+             x:DataType="vm:ThemeSelectionViewModel">
+
+    <UserControl.Resources>
+        <converters:DynamicResourceConverter x:Key="DynamicResourceConverter"/>
+    </UserControl.Resources>
+
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="vm:ThemeItem">
+            <Border Name="CardBorder" 
+                    Background="{DynamicResource SemiColorBackground1}"
+                    BorderBrush="{DynamicResource SemiColorBorder}"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Width="200" Height="160"
+                    Cursor="Hand">
+                <Border.Transitions>
+                    <Transitions>
+                        <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                    </Transitions>
+                </Border.Transitions>
+                
+                <Grid RowDefinitions="*,Auto" Margin="24">
+                    <Border Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <PathIcon Data="{Binding Icon}" Width="48" Height="48" Foreground="{DynamicResource SemiColorPrimary}"/>
+                    </Border>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                        <Border Width="16" Height="16" CornerRadius="8" BorderBrush="{DynamicResource SemiColorPrimary}" BorderThickness="1" Background="Transparent">
+                            <Border Width="8" Height="8" CornerRadius="4" Background="{DynamicResource SemiColorPrimary}" IsVisible="{Binding $parent[ListBoxItem].IsSelected}"/>
+                        </Border>
+                        <TextBlock Text="{Binding NameKey, Converter={StaticResource DynamicResourceConverter}}" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.DataTemplates>
+
+    <StackPanel Spacing="24" MaxWidth="800" HorizontalAlignment="Center">
+        <StackPanel Spacing="8">
+            <TextBlock Text="{DynamicResource Lang.Wizard.Step2Title}" Classes="H4" FontWeight="Bold"/>
+            <TextBlock Text="{DynamicResource Lang.Wizard.Step2Desc}" Opacity="0.6"/>
+        </StackPanel>
+
+        <ListBox ItemsSource="{Binding AvailableThemes}" 
+                 SelectedValue="{Binding SelectedTheme}"
+                 SelectedValueBinding="{Binding Id}"
+                 Background="Transparent">
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0,0,24,0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="ListBoxItem:pointerover ContentPresenter Border#CardBorder">
+                    <Setter Property="BorderBrush" Value="{DynamicResource SemiColorPrimary}"/>
+                    <Setter Property="RenderTransform" Value="scale(1.02)"/>
+                </Style>
+                <Style Selector="ListBoxItem:selected">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="ListBoxItem:pointerover">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="ListBoxItem:selected ContentPresenter Border#CardBorder">
+                    <Setter Property="BorderBrush" Value="{DynamicResource SemiColorPrimary}"/>
+                </Style>
+            </ListBox.Styles>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </StackPanel>
+</UserControl>

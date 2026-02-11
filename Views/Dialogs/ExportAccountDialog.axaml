@@ -1,0 +1,247 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        x:Class="TwoFactorAuth.Views.Dialogs.ExportAccountDialog"
+        x:DataType="viewmodels:ExportAccountViewModel"
+        Width="720"
+        Height="680"
+        Title="{DynamicResource Lang.Export.Title}"
+        WindowStartupLocation="CenterOwner">
+
+    <Window.Styles>
+        <Style Selector="RadioButton">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style Selector="Border.mode-card">
+            <Setter Property="Background" Value="{DynamicResource SemiColorBackground1}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+        </Style>
+        <Style Selector="Border.format-option">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16,14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Border.format-option:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SemiColorBackground2}"/>
+        </Style>
+        <Style Selector="Border.format-option.selected">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="{DynamicResource SemiColorBackground1}"/>
+        </Style>
+        <Style Selector="Border.format-option PathIcon.fmt-icon">
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorText2}"/>
+        </Style>
+        <Style Selector="Border.format-option.selected PathIcon.fmt-icon">
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom"
+                Background="{DynamicResource SemiColorBackground1}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,1,0,0"
+                Padding="20,16">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="{Binding StatusMessage}"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource SystemAccentColor}"
+                           IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="{DynamicResource Lang.Cancel}"
+                            Click="OnCancelClick"
+                            Margin="0,0,10,0"
+                            Width="100"
+                            IsEnabled="{Binding !IsBusy}"/>
+                    <Button Content="{DynamicResource Lang.Export.Export}"
+                            Click="OnExportClick"
+                            Classes="Primary"
+                            Width="100"
+                            IsEnabled="{Binding !IsBusy}"/>
+                </WrapPanel>
+            </Grid>
+        </Border>
+
+        <ScrollViewer>
+            <StackPanel Margin="24,20" Spacing="20">
+                <Border Classes="mode-card">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{DynamicResource Lang.Export.ModeTitle}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+
+                        <StackPanel Spacing="8">
+                            <RadioButton Content="{DynamicResource Lang.Export.SingleMode}"
+                                         IsChecked="{Binding IsSingleMode}"/>
+                            <TextBlock Text="{DynamicResource Lang.Export.SingleModeDesc}"
+                                       Opacity="0.6"
+                                       TextWrapping="Wrap"
+                                       Margin="28,0,0,0"/>
+
+                            <RadioButton Content="{DynamicResource Lang.Export.BatchMode}"
+                                         IsChecked="{Binding IsBatchMode}"
+                                         Margin="0,8,0,0"/>
+                            <TextBlock Text="{DynamicResource Lang.Export.BatchModeDesc}"
+                                       Opacity="0.6"
+                                       TextWrapping="Wrap"
+                                       Margin="28,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="mode-card">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{DynamicResource Lang.Export.FormatTitle}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+
+                        <Grid ColumnDefinitions="*,12,*">
+                            <Border Grid.Column="0"
+                                    Classes="format-option"
+                                    Classes.selected="{Binding IsQrCodeFormat}"
+                                    PointerPressed="OnQrCodeFormatClick">
+                                <StackPanel Spacing="4" HorizontalAlignment="Center">
+                                    <PathIcon Classes="fmt-icon" Width="18" Height="18" HorizontalAlignment="Center"
+                                              Data="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v2h2v-2zm-4 0h2v4h-2v2h2v2h-2v2h2v-2h2v2h2v-2h-2v-2h2v-4h-2v2h-2v-4zm2 8v-2h-2v2h2z"/>
+                                    <TextBlock Text="{DynamicResource Lang.Export.QrCodeFormat}"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource Lang.Export.QrCodeFormatDesc}"
+                                               Opacity="0.6"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"
+                                               FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="2"
+                                    Classes="format-option"
+                                    Classes.selected="{Binding IsUrlFormat}"
+                                    PointerPressed="OnUrlFormatClick"
+                                    IsEnabled="{Binding CanSelectFormat}">
+                                <StackPanel Spacing="4" HorizontalAlignment="Center">
+                                    <PathIcon Classes="fmt-icon" Width="18" Height="18" HorizontalAlignment="Center"
+                                              Data="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+                                    <TextBlock Text="{DynamicResource Lang.Export.UrlFormat}"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource Lang.Export.UrlFormatDesc}"
+                                               Opacity="0.6"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"
+                                               FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <TextBlock Text="{DynamicResource Lang.Export.BatchOnlyQrCode}"
+                                   Opacity="0.6"
+                                   FontSize="12"
+                                   IsVisible="{Binding IsBatchMode}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Classes="mode-card">
+                    <StackPanel Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0"
+                                       FontSize="16"
+                                       FontWeight="SemiBold">
+                                <Run Text="{DynamicResource Lang.Export.SelectAccounts}"/>
+                                <Run Text=" ("/><Run Text="{Binding SelectedCount}"/><Run Text=")"/>
+                            </TextBlock>
+
+                            <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="{DynamicResource Lang.SelectAll}"
+                                        Click="OnSelectAllClick"
+                                        Classes="Subtle"
+                                        Padding="8,4"
+                                        Margin="0,0,8,0"/>
+                                <Button Content="{DynamicResource Lang.DeselectAll}"
+                                        Click="OnDeselectAllClick"
+                                        Classes="Subtle"
+                                        Padding="8,4"/>
+                            </WrapPanel>
+                        </Grid>
+
+                        <Border Background="{DynamicResource CardBackground}"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                MaxHeight="280">
+                            <ScrollViewer>
+                                <ItemsControl ItemsSource="{Binding Accounts}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="{DynamicResource BorderColor}"
+                                                    BorderThickness="0,0,0,1"
+                                                    Padding="12,10">
+                                                <Grid ColumnDefinitions="Auto,*">
+                                                    <CheckBox Grid.Column="0"
+                                                              IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                              VerticalAlignment="Center"
+                                                              Margin="0,0,12,0"/>
+
+                                                    <StackPanel Grid.Column="1" Spacing="4">
+                                                        <TextBlock Text="{Binding DisplayName}"
+                                                                   FontWeight="Medium"/>
+                                                        <TextBlock Text="{Binding DisplayIssuer}"
+                                                                   Opacity="0.5"
+                                                                   FontSize="12"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="{DynamicResource SemiColorBackground2}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="16">
+                    <StackPanel Spacing="6">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <PathIcon Width="14" Height="14"
+                                      Foreground="{DynamicResource SemiColorWarning}"
+                                      Data="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                            <TextBlock Text="{DynamicResource Lang.Export.Notice}"
+                                       FontWeight="SemiBold"
+                                       FontSize="13"/>
+                        </StackPanel>
+                        <TextBlock Text="{DynamicResource Lang.Export.Notice1}"
+                                   TextWrapping="Wrap"
+                                   FontSize="12"
+                                   Opacity="0.7"/>
+                        <TextBlock Text="{DynamicResource Lang.Export.Notice2}"
+                                   TextWrapping="Wrap"
+                                   FontSize="12"
+                                   Opacity="0.7"/>
+                        <TextBlock Text="{DynamicResource Lang.Export.Notice3}"
+                                   TextWrapping="Wrap"
+                                   FontSize="12"
+                                   Opacity="0.7"/>
+                    </StackPanel>
+                </Border>
+
+                <ProgressBar IsIndeterminate="True"
+                             Height="3"
+                             IsVisible="{Binding IsBusy}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

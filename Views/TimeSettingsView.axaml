@@ -1,0 +1,136 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+             x:Class="TwoFactorAuth.Views.TimeSettingsView"
+             x:DataType="viewmodels:TimeSettingsViewModel">
+    <DockPanel>
+        <TextBlock Text="{DynamicResource Lang.TimeSettings.Title}" 
+                   Classes="H3" 
+                   FontWeight="Bold" 
+                   FontSize="25" 
+                   DockPanel.Dock="Top"
+                   Margin="0,0,0,24"/>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Spacing="24" Margin="0,0,12,0">
+                
+                <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                        BorderThickness="1" 
+                        CornerRadius="8" 
+                        Padding="24" 
+                        Background="{DynamicResource SemiColorBackground1}">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="{DynamicResource Lang.TimeSettings.TimeSource}" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16"/>
+                        
+                        <TextBlock Text="{DynamicResource Lang.TimeSettings.TimeSourceDesc}" 
+                                   Opacity="0.7" 
+                                   TextWrapping="Wrap"/>
+                        
+                        <RadioButton Content="{DynamicResource Lang.TimeSettings.UseSystemTime}" 
+                                     IsChecked="{Binding UseSystemTime}"
+                                     GroupName="TimeSource"/>
+                        
+                        <RadioButton Content="{DynamicResource Lang.TimeSettings.UseNtpTime}" 
+                                     IsChecked="{Binding UseNtpTime}"
+                                     GroupName="TimeSource"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                        BorderThickness="1" 
+                        CornerRadius="8" 
+                        Padding="24" 
+                        Background="{DynamicResource SemiColorBackground1}"
+                        IsEnabled="{Binding UseNtpTime}">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="{DynamicResource Lang.TimeSettings.NtpServer}" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16"/>
+                        
+                        <TextBlock Text="{DynamicResource Lang.TimeSettings.NtpServerDesc}" 
+                                   Opacity="0.7" 
+                                   TextWrapping="Wrap"/>
+                        
+                        <ComboBox ItemsSource="{Binding NtpServers}"
+                                  SelectedItem="{Binding SelectedNtpServer}"
+                                  HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="viewmodels:NtpServerOption">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <StackPanel Spacing="12" 
+                                    IsVisible="{Binding SelectedNtpServer.IsCustom}">
+                            <TextBlock Text="{DynamicResource Lang.TimeSettings.CustomServer}" 
+                                       Opacity="0.7"/>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBox Grid.Column="0" 
+                                         Text="{Binding CustomNtpServer}" 
+                                         Watermark="例如: time.example.com"
+                                         Margin="0,0,8,0"/>
+                                <Button Grid.Column="1" 
+                                        Content="{DynamicResource Lang.TimeSettings.AddServer}"
+                                        Click="OnAddCustomServerClick"
+                                        Classes="Primary"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Spacing="12">
+                            <Button Content="{DynamicResource Lang.TimeSettings.TestConnection}"
+                                    Click="OnTestConnectionClick"
+                                    IsEnabled="{Binding !IsTesting}"
+                                    HorizontalAlignment="Left"/>
+                            
+                            <Border BorderBrush="{DynamicResource SemiColorBorder}"
+                                    BorderThickness="1"
+                                    CornerRadius="4"
+                                    Padding="12"
+                                    Background="{DynamicResource SemiColorBackground0}"
+                                    IsVisible="{Binding TestResult, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                <TextBlock Text="{Binding TestResult}" 
+                                           TextWrapping="Wrap"
+                                           FontFamily="Consolas,Courier New"/>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="{DynamicResource SemiColorInfo}" 
+                        BorderThickness="1" 
+                        CornerRadius="8" 
+                        Padding="20" 
+                        Background="{DynamicResource SemiColorInfoBackground}">
+                    <StackPanel Spacing="12">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" 
+                                      Width="20" 
+                                      Height="20" 
+                                      Foreground="{DynamicResource SemiColorInfo}"
+                                      VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Lang.TimeSettings.ImportantNote}" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="14" 
+                                       Foreground="{DynamicResource SemiColorInfo}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{DynamicResource Lang.TimeSettings.Note1}" 
+                                       FontSize="12" 
+                                       TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource Lang.TimeSettings.Note2}" 
+                                       FontSize="12" 
+                                       TextWrapping="Wrap"/>
+                            <TextBlock Text="{DynamicResource Lang.TimeSettings.Note3}" 
+                                       FontSize="12" 
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

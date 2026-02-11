@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+             x:Class="TwoFactorAuth.Views.LockScreenView"
+             x:DataType="viewmodels:LockScreenViewModel">
+    <Grid Background="{DynamicResource SemiColorBackground0}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="24">
+             <PathIcon Data="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"
+                       Width="64" Height="64" Foreground="{DynamicResource SemiColorPrimary}" />
+             
+             <TextBlock Text="{DynamicResource Lang.Security.AppLocked}" 
+                        Classes="H3" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        
+             <TextBlock Text="{DynamicResource Lang.Security.EnterMasterPassword}" 
+                        Opacity="0.7" HorizontalAlignment="Center"/>
+             
+             <StackPanel Spacing="8" Width="300">
+                <TextBox PasswordChar="•" Text="{Binding Password}" Watermark="{DynamicResource Lang.Security.PasswordDialogPrompt}">
+                     <TextBox.KeyBindings>
+                         <KeyBinding Gesture="Enter" Command="{Binding UnlockCommand}" />
+                     </TextBox.KeyBindings>
+                 </TextBox>
+                 <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource SemiColorDanger}" 
+                            IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+             </StackPanel>
+             
+             <Button Content="{DynamicResource Lang.Security.Unlock}" Command="{Binding UnlockCommand}" 
+                     Classes="Primary" HorizontalAlignment="Center" Width="300" />
+        </StackPanel>
+    </Grid>
+</UserControl>

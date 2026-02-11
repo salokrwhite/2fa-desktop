@@ -1,0 +1,498 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <!-- Navigation -->
+    <s:String x:Key="Lang.Select">選択</s:String>
+    <s:String x:Key="Lang.CancelSelect">選択解除</s:String>
+    <s:String x:Key="Lang.SelectAll">全選択</s:String>
+    <s:String x:Key="Lang.DeselectAll">全選択解除</s:String>
+    <s:String x:Key="Lang.DeleteSelected">選択した項目を削除</s:String>
+    <s:String x:Key="Lang.BatchPin">一括ピン留め</s:String>
+    <s:String x:Key="Lang.BatchMoveToCategory">一括でカテゴリに移動</s:String>
+    <s:String x:Key="Lang.View.Grid">グリッド</s:String>
+    <s:String x:Key="Lang.View.List">リスト</s:String>
+
+    <s:String x:Key="Lang.AccountName">アカウント名</s:String>
+    <s:String x:Key="Lang.Issuer">発行者</s:String>
+    <s:String x:Key="Lang.Secret">シークレット (Base32)</s:String>
+    <s:String x:Key="Lang.Type">タイプ</s:String>
+    <s:String x:Key="Lang.Digits">桁数</s:String>
+    <s:String x:Key="Lang.Period">期間 (秒)</s:String>
+    <s:String x:Key="Lang.Dialog.AddAccount">アカウントを追加</s:String>
+    <s:String x:Key="Lang.Dialog.EditAccount">アカウントを編集</s:String>
+    <s:String x:Key="Lang.Toggle.On">オン</s:String>
+    <s:String x:Key="Lang.Toggle.Off">オフ</s:String>
+    
+    <!-- Greeting -->
+    <s:String x:Key="Lang.Greeting.Morning">おはようございます！</s:String>
+    <s:String x:Key="Lang.Greeting.Afternoon">こんにちは！</s:String>
+    <s:String x:Key="Lang.Greeting.Evening">こんばんは！</s:String>
+
+    <s:String x:Key="Lang.Nav.Dashboard">ダッシュボード</s:String>
+    <s:String x:Key="Lang.Nav.AllAccounts">すべてのアカウント</s:String>
+    
+    <!-- Dashboard -->
+    <s:String x:Key="Lang.Dashboard.QuickActions">⚡ クイックアクション</s:String>
+    <s:String x:Key="Lang.Dashboard.AddAccount">アカウント追加</s:String>
+    <s:String x:Key="Lang.Dashboard.ScanQR">QRスキャン</s:String>
+    <s:String x:Key="Lang.Dashboard.ImportBackup">バックアップ読込</s:String>
+    <s:String x:Key="Lang.Dashboard.LockApp">今すぐロック</s:String>
+    <s:String x:Key="Lang.Dashboard.SecurityReminder">セキュリティリマインダー</s:String>
+    <s:String x:Key="Lang.Dashboard.BackupWarning">{0}日間バックアップされていません、バックアップを推奨</s:String>
+    <s:String x:Key="Lang.Dashboard.BackupWarningLong">長期間バックアップされていません、今すぐバックアップを推奨</s:String>
+    <s:String x:Key="Lang.Dashboard.MasterPasswordSet">マスターパスワード設定済み</s:String>
+    <s:String x:Key="Lang.Dashboard.MasterPasswordNotSet">マスターパスワード未設定</s:String>
+    <s:String x:Key="Lang.Dashboard.AutoLockEnabled">自動ロック有効</s:String>
+    <s:String x:Key="Lang.Dashboard.AutoLockDisabled">自動ロック無効</s:String>
+    <s:String x:Key="Lang.Dashboard.RecentActivity">最近のアクティビティ</s:String>
+    <s:String x:Key="Lang.Dashboard.NoRecentActivity">最近のアクティビティなし</s:String>
+    <s:String x:Key="Lang.Dashboard.JustNow">たった今</s:String>
+    <s:String x:Key="Lang.Dashboard.MinutesAgo">分前</s:String>
+    <s:String x:Key="Lang.Dashboard.HoursAgo">時間前</s:String>
+    <s:String x:Key="Lang.Dashboard.DaysAgo">日前</s:String>
+    
+    <s:String x:Key="Lang.Nav.Category">カテゴリ</s:String>
+    <s:String x:Key="Lang.Nav.Logs">ログ</s:String>
+    <s:String x:Key="Lang.Nav.Security">セキュリティ</s:String>
+    <s:String x:Key="Lang.Nav.Backup">バックアップ</s:String>
+    <s:String x:Key="Lang.Nav.About">バージョン情報</s:String>
+
+    <!-- App Title -->
+    <s:String x:Key="Lang.AppTitle">2FA 認証アプリ</s:String>
+    <s:String x:Key="Lang.SidebarTitle">2FA 認証アプリ</s:String>
+
+    <!-- Account List -->
+    <s:String x:Key="Lang.SearchPlaceholder">アカウントを検索...</s:String>
+    <s:String x:Key="Lang.ClearFilter">フィルタをクリア</s:String>
+    <s:String x:Key="Lang.QrImport">QRコードをインポート</s:String>
+    <s:String x:Key="Lang.AddAccount">アカウントを追加</s:String>
+    <s:String x:Key="Lang.Copy">コピー</s:String>
+    <s:String x:Key="Lang.Edit">編集</s:String>
+    <s:String x:Key="Lang.Delete">削除</s:String>
+    <s:String x:Key="Lang.AllCategories">すべてのカテゴリ</s:String>
+
+    <!-- QR Import -->
+    <s:String x:Key="Lang.QrImport.Title">QRコードをインポート</s:String>
+    <s:String x:Key="Lang.QrImport.SelectImages">QR画像を選択...</s:String>
+    <s:String x:Key="Lang.QrImport.Clear">クリア</s:String>
+    <s:String x:Key="Lang.QrImport.Import">選択したものをインポート</s:String>
+    <s:String x:Key="Lang.QrImport.FileType.Images">画像ファイル</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Select">選択</s:String>
+    <s:String x:Key="Lang.QrImport.Column.SourceFile">元ファイル</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Issuer">発行元</s:String>
+    <s:String x:Key="Lang.QrImport.Column.AccountName">アカウント名</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Type">種類</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Digits">桁数</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Period">周期</s:String>
+    <s:String x:Key="Lang.QrImport.Column.Status">状態</s:String>
+    <s:String x:Key="Lang.QrImport.Column.RawText">QR内容</s:String>
+    <s:String x:Key="Lang.QrImport.Status.Ready">インポート可</s:String>
+    <s:String x:Key="Lang.QrImport.Status.Duplicate">重複</s:String>
+    <s:String x:Key="Lang.QrImport.Status.Invalid">無効</s:String>
+    <s:String x:Key="Lang.QrImport.Status.NoQrFound">QRコードが見つかりません</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.AlreadyExists">既に存在します</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.DuplicateInImport">インポート内で重複</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.EmptyQrText">QR内容が空です</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.InvalidUri">無効なURI</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.NotOtpAuth">otpauth URIではありません</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.UnsupportedOtpType">未対応のOTP種類</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.MissingSecret">secretがありません</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.InvalidDigits">digitsが無効です</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.InvalidPeriod">periodが無効です</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.MissingAccountName">アカウント名がありません</s:String>
+    <s:String x:Key="Lang.QrImport.Detail.GoogleMigration">Google 認証システム一括エクスポート</s:String>
+
+    <!-- Category -->
+    <s:String x:Key="Lang.Category.Title">カテゴリ</s:String>
+    <s:String x:Key="Lang.Category.Label">カテゴリ</s:String>
+    <s:String x:Key="Lang.Category.Placeholder">カテゴリ名</s:String>
+    <s:String x:Key="Lang.Category.SearchPlaceholder">カテゴリまたはアカウントを検索...</s:String>
+    <s:String x:Key="Lang.Category.Dev">カテゴリ管理は開発中です...</s:String>
+    <s:String x:Key="Lang.Add">追加</s:String>
+    <s:String x:Key="Lang.Rename">名前変更</s:String>
+    <s:String x:Key="Lang.Category.RenameTitle">カテゴリ名の変更</s:String>
+    <s:String x:Key="Lang.Category.RenamePrompt">新しいカテゴリ名を入力してください：</s:String>
+    <s:String x:Key="Lang.AccountCount">{0} アカウント</s:String>
+    <s:String x:Key="Lang.Category.SortBy">並び替え：</s:String>
+    <s:String x:Key="Lang.Category.SortByCount">アカウント数</s:String>
+    <s:String x:Key="Lang.Category.SortByCountHint">アカウント数の降順で並び替え</s:String>
+    <s:String x:Key="Lang.Category.SortByName">名前</s:String>
+    <s:String x:Key="Lang.Category.SortByNameHint">名前のアルファベット順で並び替え</s:String>
+    <s:String x:Key="Lang.Category.DragHint">（カテゴリをドラッグして順序を変更）</s:String>
+    <s:String x:Key="Lang.Category.DragToReorder">ドラッグして順序を変更</s:String>
+    <s:String x:Key="Lang.Category.Settings">設定</s:String>
+    <s:String x:Key="Lang.Category.SettingsTooltip">カテゴリ設定を編集</s:String>
+    <s:String x:Key="Lang.Category.SettingsTitle">カテゴリ設定</s:String>
+    <s:String x:Key="Lang.Category.SettingsPrompt">カテゴリ名と説明を編集：</s:String>
+    <s:String x:Key="Lang.Category.NameLabel">カテゴリ名</s:String>
+    <s:String x:Key="Lang.Category.NameWatermark">カテゴリ名を入力</s:String>
+    <s:String x:Key="Lang.Category.DescriptionLabel">説明 / メモ</s:String>
+    <s:String x:Key="Lang.Category.DescriptionWatermark">説明やメモを入力（オプション）</s:String>
+    <s:String x:Key="Lang.Category.DescriptionHint">カテゴリの用途、メモ、追加のコンテキストを記録するために使用</s:String>
+    <s:String x:Key="Lang.Category.Detail">詳細</s:String>
+    <s:String x:Key="Lang.Category.DetailTooltip">カテゴリ詳細を表示</s:String>
+    <s:String x:Key="Lang.Category.DetailTitle">カテゴリ詳細</s:String>
+    <s:String x:Key="Lang.Category.DetailPrompt">カテゴリ情報を表示：</s:String>
+    <s:String x:Key="Lang.Category.AccountCountLabel">アカウント数</s:String>
+    <s:String x:Key="Lang.Category.NoDescription">説明なし</s:String>
+    <s:String x:Key="Lang.Category.SortOrderLabel">並び順</s:String>
+    <s:String x:Key="Lang.Category.MultiSelect">複数選択</s:String>
+    <s:String x:Key="Lang.Category.CancelMultiSelect">複数選択を解除</s:String>
+    <s:String x:Key="Lang.Category.Merge">統合</s:String>
+    <s:String x:Key="Lang.Category.MergeTitle">カテゴリを統合</s:String>
+    <s:String x:Key="Lang.Category.MergePrompt">保持する対象カテゴリを選択してください。他のカテゴリのアカウントは対象に移動され、元のカテゴリは削除されます。</s:String>
+    <s:String x:Key="Lang.Category.SelectedCategories">選択されたカテゴリ</s:String>
+    <s:String x:Key="Lang.Category.MergeTarget">対象カテゴリ（保持）</s:String>
+    <s:String x:Key="Lang.Category.MergeHint">すべてのアカウントがこのカテゴリに移動され、他のカテゴリは削除されます</s:String>
+    <s:String x:Key="Lang.Category.MergePreview">統合プレビュー</s:String>
+    <s:String x:Key="Lang.Category.MergeSelectTarget">対象カテゴリを選択してください</s:String>
+    <s:String x:Key="Lang.Category.MergePreviewFormat">{1}個のアカウントを"{0}"に統合し、{2}個のカテゴリを削除</s:String>
+    <s:String x:Key="Lang.Category.MergeCategories">カテゴリを統合</s:String>
+    <s:String x:Key="Lang.Category.ViewProperties">プロパティを表示</s:String>
+
+    <!-- Logs -->
+    <s:String x:Key="Lang.Logs.Title">操作ログ</s:String>
+    <s:String x:Key="Lang.Logs.Dev">操作ログは開発中です...</s:String>
+    <s:String x:Key="Lang.Logs.TotalPrefix">合計 </s:String>
+    <s:String x:Key="Lang.Logs.TotalSuffix"> 件</s:String>
+    <s:String x:Key="Lang.Logs.SelectAll">全選択</s:String>
+    <s:String x:Key="Lang.Logs.Export">ログをエクスポート</s:String>
+    <s:String x:Key="Lang.Logs.DeleteSelected">選択を削除</s:String>
+    <s:String x:Key="Lang.Logs.ClearAll">すべてのログをクリア</s:String>
+    <s:String x:Key="Lang.Logs.CancelSelection">選択解除</s:String>
+    <s:String x:Key="Lang.Logs.PageSizeLabel">1ページ:</s:String>
+    <s:String x:Key="Lang.Logs.PageSizeAll">すべて</s:String>
+    <s:String x:Key="Lang.Logs.Column.Select">選択</s:String>
+    <s:String x:Key="Lang.Logs.Column.Time">時刻</s:String>
+    <s:String x:Key="Lang.Logs.Column.Operation">操作</s:String>
+    <s:String x:Key="Lang.Logs.Column.Target">対象</s:String>
+    <s:String x:Key="Lang.Logs.Column.Details">詳細</s:String>
+    <s:String x:Key="Lang.Logs.ExportDialogTitle">操作ログをエクスポート</s:String>
+    <s:String x:Key="Lang.Logs.ExportFileTypeCsv">CSVファイル</s:String>
+    <s:String x:Key="Lang.Logs.ExportCsvHeader">時間,操作,対象,詳細</s:String>
+    <s:String x:Key="Lang.Logs.ExportSuccess">エクスポートに成功しました！</s:String>
+    <s:String x:Key="Lang.Logs.ExportFailedFormat">エクスポートに失敗しました: {0}</s:String>
+    <s:String x:Key="Lang.Logs.Op.AddAccount">アカウントを追加</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateAccount">アカウントを更新</s:String>
+    <s:String x:Key="Lang.Logs.Op.DeleteAccount">アカウントを削除</s:String>
+    <s:String x:Key="Lang.Logs.Op.ImportBackup">バックアップをインポート</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateSettings">設定を更新</s:String>
+    <s:String x:Key="Lang.Logs.Op.AddCategory">カテゴリを追加</s:String>
+    <s:String x:Key="Lang.Logs.Op.DeleteCategory">カテゴリを削除</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateCategory">カテゴリを更新</s:String>
+    <s:String x:Key="Lang.Logs.Op.MergeCategory">カテゴリを統合</s:String>
+    <s:String x:Key="Lang.Logs.Op.ExportBackup">バックアップをエクスポート</s:String>
+    <s:String x:Key="Lang.Logs.Op.TestLog">テストログ</s:String>
+
+    <!-- ログ表示モード -->
+    <s:String x:Key="Lang.Logs.ShowRawFormat">生ログ形式で表示</s:String>
+    <s:String x:Key="Lang.Logs.ShowRawFormatHint">デバッグと分析用の技術的な生ログデータを表示します</s:String>
+    <s:String x:Key="Lang.Logs.Target.Security">セキュリティ設定</s:String>
+    <s:String x:Key="Lang.Logs.Target.Settings">アプリ設定</s:String>
+    <s:String x:Key="Lang.Logs.Target.Issuer">発行者</s:String>
+    <s:String x:Key="Lang.Logs.Target.AccountName">アカウント</s:String>
+    <s:String x:Key="Lang.Logs.Details.RotateSecrets">すべてのアカウントシークレットを再暗号化しました</s:String>
+    <s:String x:Key="Lang.Logs.Details.Theme">テーマ</s:String>
+    <s:String x:Key="Lang.Logs.Details.Language">言語</s:String>
+    <s:String x:Key="Lang.Logs.Details.RefreshPeriod">更新間隔</s:String>
+    <s:String x:Key="Lang.Logs.Details.AutoLockMinutes">自動ロック時間</s:String>
+    <s:String x:Key="Lang.Logs.Details.AccountsCount">{0} アカウント</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoriesCount">{0} カテゴリ</s:String>
+    <s:String x:Key="Lang.Logs.Details.Imported">{0} アカウントをインポート</s:String>
+    <s:String x:Key="Lang.Logs.Details.Skipped">{0} スキップ</s:String>
+    <s:String x:Key="Lang.Logs.Details.Updated">{0} 更新</s:String>
+    <s:String x:Key="Lang.Logs.Details.DigitsUnit">桁</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoryName">カテゴリ名を変更</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoryDescription">説明を更新</s:String>
+    <s:String x:Key="Lang.Logs.Details.CategoryNameAndDescription">名前と説明を変更</s:String>
+
+    <!-- Security -->
+    <s:String x:Key="Lang.Security.Title">セキュリティ設定</s:String>
+    <s:String x:Key="Lang.Security.Desc">セキュリティ設定には、パスワード、ロック、クリップボードなどが含まれます。</s:String>
+    <s:String x:Key="Lang.Security.AppLock">アプリロックを有効にする</s:String>
+    <s:String x:Key="Lang.Security.IdleAutoLock">アイドル時に自動ロック</s:String>
+    <s:String x:Key="Lang.Security.AutoLockMinutes">自動ロックまで</s:String>
+    <s:String x:Key="Lang.Security.MinutesUnit">分</s:String>
+    <s:String x:Key="Lang.Security.IdleAutoLockUnsupported">このプラットフォームではグローバルなアイドル検出はサポートされていません。</s:String>
+    <s:String x:Key="Lang.Security.AppLocked">アプリがロックされています</s:String>
+    <s:String x:Key="Lang.Security.EnterMasterPassword">マスターパスワードを入力してロックを解除してください</s:String>
+    <s:String x:Key="Lang.Security.PasswordDialogTitle">マスターパスワード</s:String>
+    <s:String x:Key="Lang.Security.PasswordDialogPrompt">マスターパスワードを入力</s:String>
+    <s:String x:Key="Lang.Security.Unlock">解除</s:String>
+    <s:String x:Key="Lang.Security.PasswordIncorrect">パスワードが正しくありません</s:String>
+    <s:String x:Key="Lang.Security.SetMasterPasswordTitle">マスターパスワードを設定</s:String>
+    <s:String x:Key="Lang.Security.NewPasswordPrompt">新しいパスワード</s:String>
+    <s:String x:Key="Lang.Security.ConfirmPasswordPrompt">新しいパスワード（確認）</s:String>
+    <s:String x:Key="Lang.Security.PasswordEmpty">パスワードを入力してください</s:String>
+    <s:String x:Key="Lang.Security.PasswordMismatch">パスワードが一致しません</s:String>
+    <s:String x:Key="Lang.Security.RemoveMasterPasswordTitle">マスターパスワードを削除</s:String>
+    <s:String x:Key="Lang.Security.CurrentPasswordPrompt">現在のマスターパスワードを入力</s:String>
+    <s:String x:Key="Lang.Security.ClipboardClearEnabled">クリップボードの認証コードを自動消去</s:String>
+    <s:String x:Key="Lang.Security.ClipboardClearDelay">消去までの時間</s:String>
+    <s:String x:Key="Lang.Security.ClipboardClearHint">システムの制約により、クリップボードの認証コードを消去することはサポートされていません。</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshots">スクリーンショットをブロック</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshotsHintSupported">有効：スクリーンショット/録画は黒表示になります（Windows 10 2004+）。</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshotsHintUnsupported">この Windows バージョンでは未対応です（Windows 10 2004+ が必要）。</s:String>
+    <s:String x:Key="Lang.Security.BlockScreenshotsHintFailedFormat">有効化に失敗しました（エラー：{0}）。</s:String>
+    <s:String x:Key="Lang.Security.SetPasswordFailed">パスワードの設定に失敗しました</s:String>
+    <s:String x:Key="Lang.Security.RemovePasswordFailed">パスワードの削除に失敗しました</s:String>
+    <s:String x:Key="Lang.Security.CannotRemovePasswordWithLockEnabled">マスターパスワードを削除する前に、すべてのロック機能を無効にしてください</s:String>
+    <s:String x:Key="Lang.Security.ConfirmPasswordTitle">パスワードの確認</s:String>
+    <s:String x:Key="Lang.Security.EnterPasswordToEnableLock">ロック機能を有効にするにはマスターパスワードを入力してください</s:String>
+    <s:String x:Key="Lang.Security.EnterPasswordToDisableLock">ロック機能を無効にするにはマスターパスワードを入力してください</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordSection">マスターパスワード管理</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordStatus">マスターパスワードの状態</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordSet">設定済み</s:String>
+    <s:String x:Key="Lang.Security.MasterPasswordNotSet">未設定</s:String>
+    <s:String x:Key="Lang.Security.SetMasterPassword">マスターパスワードを設定</s:String>
+    <s:String x:Key="Lang.Security.RemoveMasterPassword">マスターパスワードを削除</s:String>
+    <s:String x:Key="Lang.Security.SecurityNotice">セキュリティに関する説明</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordWarning">マスターパスワード未設定</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordDesc1">• データはローカルデータベースに保存されています</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordDesc2">• デバイスにアクセスできる人は誰でもデータを読み取れる可能性があります</s:String>
+    <s:String x:Key="Lang.Security.NoPasswordDesc3">• 個人用デバイスでのみ使用することをお勧めします</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordInfo">マスターパスワード設定済み</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordDesc1">• データはマスターパスワードで暗号化されています</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordDesc2">• データベースが盗まれても復号化できません</s:String>
+    <s:String x:Key="Lang.Security.HasPasswordDesc3">• 共有デバイスや高セキュリティ要件に推奨</s:String>
+
+    <!-- Backup -->
+    <s:String x:Key="Lang.Backup.Title">バックアップと復元</s:String>
+    <s:String x:Key="Lang.Backup.PageTitle">バックアップと復元</s:String>
+    <s:String x:Key="Lang.Backup.Export">データをエクスポート</s:String>
+    <s:String x:Key="Lang.Backup.Import">データをインポート</s:String>
+    <s:String x:Key="Lang.Backup.DataStatistics">📊 現在のデータ統計</s:String>
+    <s:String x:Key="Lang.Backup.AccountCount">アカウント数</s:String>
+    <s:String x:Key="Lang.Backup.CategoryCount">カテゴリ数</s:String>
+    <s:String x:Key="Lang.Backup.LastBackupTime">最後のバックアップ時刻</s:String>
+    <s:String x:Key="Lang.Backup.NeverBackedUp">バックアップなし</s:String>
+    <s:String x:Key="Lang.Backup.Operations">バックアップ操作</s:String>
+    <s:String x:Key="Lang.Backup.ExportHint">すべてのデータを暗号化されたバックアップファイルとしてエクスポート、設定とログを含めることも可能</s:String>
+    <s:String x:Key="Lang.Backup.ImportHint">バックアップファイルからデータを復元、マージまたは上書きモードをサポート</s:String>
+    
+    <!-- Export Dialog -->
+    <s:String x:Key="Lang.Backup.ExportTitle">バックアップのエクスポート</s:String>
+    <s:String x:Key="Lang.Backup.ExportDescription">2FAアカウントデータを暗号化されたバックアップファイルとしてエクスポート</s:String>
+    <s:String x:Key="Lang.Backup.BackupPassword">バックアップパスワード</s:String>
+    <s:String x:Key="Lang.Backup.PasswordWatermark">バックアップパスワードを入力（8文字以上）</s:String>
+    <s:String x:Key="Lang.Backup.PasswordHint">推奨：大文字、小文字、数字、記号を含む強力なパスワード、8文字以上</s:String>
+    <s:String x:Key="Lang.Backup.ConfirmPassword">パスワードの確認</s:String>
+    <s:String x:Key="Lang.Backup.ConfirmPasswordWatermark">バックアップパスワードを再入力</s:String>
+    <s:String x:Key="Lang.Backup.ExportOptions">エクスポートオプション</s:String>
+    <s:String x:Key="Lang.Backup.IncludeSettings">アプリ設定を含める</s:String>
+    <s:String x:Key="Lang.Backup.IncludeLogs">操作ログを含める</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarningTitle">セキュリティ通知</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarning1">• バックアップパスワードを安全に保管してください。紛失するとデータを復元できません</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarning2">• バックアップファイルとパスワードは別々に保管してください</s:String>
+    <s:String x:Key="Lang.Backup.SecurityWarning3">• 安全でないチャネルを通じてバックアップファイルを送信しないでください</s:String>
+    <s:String x:Key="Lang.Backup.PasswordEmpty">バックアップパスワードは空にできません</s:String>
+    <s:String x:Key="Lang.Backup.PasswordTooShort">パスワードは8文字以上である必要があります</s:String>
+    <s:String x:Key="Lang.Backup.PasswordMismatch">パスワードが一致しません</s:String>
+    
+    <!-- Import Dialog -->
+    <s:String x:Key="Lang.Backup.ImportTitle">バックアップのインポート</s:String>
+    <s:String x:Key="Lang.Backup.ImportDescription">バックアップファイルから2FAアカウントデータを復元</s:String>
+    <s:String x:Key="Lang.Backup.BackupInfo">バックアップ情報</s:String>
+    <s:String x:Key="Lang.Backup.BackupTime">バックアップ時刻</s:String>
+    <s:String x:Key="Lang.Backup.AppVersion">アプリバージョン</s:String>
+    <s:String x:Key="Lang.Backup.EnterPasswordWatermark">バックアップパスワードを入力</s:String>
+    <s:String x:Key="Lang.Backup.ImportMode">インポートモード</s:String>
+    <s:String x:Key="Lang.Backup.MergeMode">マージモード（推奨）</s:String>
+    <s:String x:Key="Lang.Backup.MergeModeDesc">既存のデータを保持し、バックアップから新しいデータを追加</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteMode">上書きモード</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteModeDesc">既存のデータをクリアし、バックアップデータで完全に置き換え</s:String>
+    <s:String x:Key="Lang.Backup.ConflictStrategy">競合戦略</s:String>
+    <s:String x:Key="Lang.Backup.ConflictSkip">重複をスキップ</s:String>
+    <s:String x:Key="Lang.Backup.ConflictOverwrite">既存を上書き</s:String>
+    <s:String x:Key="Lang.Backup.ConflictRename">両方を保持（名前変更）</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteWarningTitle">警告</s:String>
+    <s:String x:Key="Lang.Backup.OverwriteWarning">上書きモードはすべての既存データを削除します！この操作は元に戻せません。慎重に進めてください。</s:String>
+    
+    <!-- 重要なリマインダー -->
+    <s:String x:Key="Lang.Backup.ImportantReminder">重要なリマインダー</s:String>
+    <s:String x:Key="Lang.Backup.Reminder1">• バックアップファイルとパスワードを安全に保管してください。できれば安全なオフラインの場所に保存してください</s:String>
+    <s:String x:Key="Lang.Backup.Reminder2">• 信頼できないクラウドストレージや公共ネットワークにバックアップファイルをアップロードしないでください</s:String>
+    <s:String x:Key="Lang.Backup.Reminder3">• 定期的にバックアップを作成してください。少なくとも月に1回が推奨されます</s:String>
+    <s:String x:Key="Lang.Backup.Reminder4">• バックアップファイルには機密情報が含まれています。安全でないチャネルを通じて送信しないでください</s:String>
+    
+    <!-- Backup Messages -->
+    <s:String x:Key="Lang.Backup.SaveBackupFileTitle">バックアップファイルを保存</s:String>
+    <s:String x:Key="Lang.Backup.SelectBackupFileTitle">バックアップファイルを選択</s:String>
+    <s:String x:Key="Lang.Backup.ExportSuccessTitle">エクスポート成功</s:String>
+    <s:String x:Key="Lang.Backup.ExportSuccessMessage">バックアップファイルの保存先：</s:String>
+    <s:String x:Key="Lang.Backup.ExportFailedTitle">エクスポート失敗</s:String>
+    <s:String x:Key="Lang.Backup.ExportFailedMessage">バックアップのエクスポート中にエラーが発生しました：</s:String>
+    <s:String x:Key="Lang.Backup.ImportSuccessTitle">インポート成功</s:String>
+    <s:String x:Key="Lang.Backup.ImportCompletedMessage">インポートが完了しました！</s:String>
+    <s:String x:Key="Lang.Backup.ImportFailedTitle">インポート失敗</s:String>
+    <s:String x:Key="Lang.Backup.ImportFailedMessage">バックアップのインポート中にエラーが発生しました：</s:String>
+    <s:String x:Key="Lang.Backup.InvalidBackupFileMessage">バックアップファイル形式が無効です</s:String>
+    <s:String x:Key="Lang.Backup.AccountsLabel">アカウント：</s:String>
+    <s:String x:Key="Lang.Backup.CategoriesLabel">カテゴリ：</s:String>
+    <s:String x:Key="Lang.Backup.ImportedLabel">インポート</s:String>
+    <s:String x:Key="Lang.Backup.UpdatedLabel">更新</s:String>
+    <s:String x:Key="Lang.Backup.SkippedLabel">スキップ</s:String>
+    <s:String x:Key="Lang.Backup.DeletedLabel">削除</s:String>
+    <s:String x:Key="Lang.Backup.ConfirmButton">OK</s:String>
+
+    <!-- About -->
+    <s:String x:Key="Lang.About.Title">バージョン情報</s:String>
+    <s:String x:Key="Lang.About.AppName">2FA 認証アプリ</s:String>
+    <s:String x:Key="Lang.About.Version">バージョン:</s:String>
+    <s:String x:Key="Lang.About.License">ライセンス: MIT</s:String>
+    
+    <!-- Settings -->
+    <s:String x:Key="Lang.Settings.Title">設定</s:String>
+    <s:String x:Key="Lang.Settings.AppInfo">アプリ情報</s:String>
+    <s:String x:Key="Lang.Settings.NativeAOT">Native AOT:</s:String>
+    <s:String x:Key="Lang.Settings.Enabled">有効</s:String>
+    <s:String x:Key="Lang.Settings.Language">言語切替</s:String>
+    <s:String x:Key="Lang.Settings.Theme">テーマ</s:String>
+    <s:String x:Key="Lang.Theme.Light">ライト</s:String>
+    <s:String x:Key="Lang.Theme.Dark">ダーク</s:String>
+    <s:String x:Key="Lang.Wizard.Back">戻る</s:String>
+    <s:String x:Key="Lang.Wizard.Next">次へ</s:String>
+    <s:String x:Key="Lang.Wizard.Finish">始める</s:String>
+    <s:String x:Key="Lang.Wizard.Welcome">2FA Authenticator へようこそ</s:String>
+    <s:String x:Key="Lang.Wizard.Step1Title">表示言語の選択</s:String>
+    <s:String x:Key="Lang.Wizard.Step1Desc">使用する言語を選択してください</s:String>
+    <s:String x:Key="Lang.Wizard.Step2Title">カラーテーマの選択</s:String>
+    <s:String x:Key="Lang.Wizard.Step2Desc">お好みのインターフェーススタイルを選択してください</s:String>
+    
+    <!-- Dialogs -->
+    <s:String x:Key="Lang.Cancel">キャンセル</s:String>
+    <s:String x:Key="Lang.Save">保存</s:String>
+
+    <!-- Time Settings -->
+    <s:String x:Key="Lang.Nav.TimeSettings">時間設定</s:String>
+    <s:String x:Key="Lang.TimeSettings.Title">時間設定</s:String>
+    <s:String x:Key="Lang.TimeSettings.TimeSource">時間ソース</s:String>
+    <s:String x:Key="Lang.TimeSettings.TimeSourceDesc">認証コード生成に使用する時間ソースを選択してください。正確な時間はTOTPコードにとって重要です。</s:String>
+    <s:String x:Key="Lang.TimeSettings.UseSystemTime">システム時刻を使用</s:String>
+    <s:String x:Key="Lang.TimeSettings.UseNtpTime">NTPネットワーク時刻を使用</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer">NTPサーバー</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServerDesc">NTP時刻サーバーを選択またはカスタマイズしてください。より良い同期のために地理的に近いサーバーを選択してください。</s:String>
+    <s:String x:Key="Lang.TimeSettings.CustomServer">カスタムサーバーアドレス</s:String>
+    <s:String x:Key="Lang.TimeSettings.AddServer">追加</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestConnection">接続テスト</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestSelectServer">NTPサーバーを選択してください</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestEnterServer">NTPサーバーのアドレスを入力してください</s:String>
+    <s:String x:Key="Lang.TimeSettings.Testing">接続をテスト中...</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestFailed">テストに失敗しました。サーバーアドレスまたはネットワーク接続を確認してください。</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestSuccessFormat">接続成功！&#10;ネットワーク時刻: {0} UTC&#10;時間差: {1} 秒</s:String>
+    <s:String x:Key="Lang.TimeSettings.TestErrorFormat">テスト失敗: {0}</s:String>
+    <s:String x:Key="Lang.TimeSettings.ImportantNote">重要な注意事項</s:String>
+    <s:String x:Key="Lang.TimeSettings.Note1">• TOTPコードは時間ベースです。不正確な時間は認証失敗の原因となります</s:String>
+    <s:String x:Key="Lang.TimeSettings.Note2">• NTP時刻を使用すると精度が保証されますが、ネットワーク接続が必要です</s:String>
+    <s:String x:Key="Lang.TimeSettings.Note3">• 適切な時刻同期を確保するため、定期的にNTP接続をテストしてください</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.WindowsTime">Windows Time (Recommended)</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Aliyun">Aliyun NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Tencent">Tencent Cloud NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Google">Google NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Cloudflare">Cloudflare NTP</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.Custom">カスタムサーバー</s:String>
+    <s:String x:Key="Lang.TimeSettings.NtpServer.CustomPrefix">カスタム</s:String>
+    <s:String x:Key="Lang.DeleteConfirmTitle">アカウントを削除</s:String>
+    <s:String x:Key="Lang.DeleteConfirmMessage">このアカウントを削除してもよろしいですか？この操作は元に戻せません。</s:String>
+    <s:String x:Key="Lang.DeleteSelectedConfirmTitle">選択したアカウントを削除</s:String>
+    <s:String x:Key="Lang.DeleteSelectedConfirmMessage">選択した{0}個のアカウントを削除してもよろしいですか？この操作は元に戻せません。</s:String>
+    <s:String x:Key="Lang.MultiSelect">複数選択</s:String>
+    <s:String x:Key="Lang.DeleteSuccessFormat">{0} を削除しました</s:String>
+    <s:String x:Key="Lang.CopySuccess">コピーしました</s:String>
+
+    <!-- Unified Add Account Dialog -->
+    <s:String x:Key="Lang.AddAccount.Tab.Manual">手動入力</s:String>
+    <s:String x:Key="Lang.AddAccount.Tab.Url">URLインポート</s:String>
+    <s:String x:Key="Lang.AddAccount.Tab.QrCode">QRコードインポート</s:String>
+    <s:String x:Key="Lang.AddAccount.ManualDesc">アカウント情報とシークレットキーを手動で入力します</s:String>
+    <s:String x:Key="Lang.AddAccount.UrlDesc">otpauth://プロトコルのURLを貼り付けてクイックインポート</s:String>
+    <s:String x:Key="Lang.AddAccount.QrDesc">QRコード画像からアカウントをインポート</s:String>
+    <s:String x:Key="Lang.AddAccount.NameHint">例：マイアカウント</s:String>
+    <s:String x:Key="Lang.AddAccount.SecretHint">Base32形式のシークレットキー</s:String>
+    <s:String x:Key="Lang.AddAccount.CategoryHint">カテゴリを選択（任意）</s:String>
+    <s:String x:Key="Lang.AddAccount.OtpAuthUrl">OTP認証URL</s:String>
+    <s:String x:Key="Lang.AddAccount.UrlHint">otpauth://で始まるURLを貼り付け</s:String>
+    <s:String x:Key="Lang.AddAccount.ParsedData">解析結果</s:String>
+
+    <!-- Service Provider Templates -->
+    <s:String x:Key="Lang.Nav.ServiceProvider">サービスプロバイダー</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Title">サービスプロバイダーテンプレート</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Add">プロバイダーを追加</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Name">プロバイダー名</s:String>
+    <s:String x:Key="Lang.ServiceProvider.NamePlaceholder">プロバイダー名を入力</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Icon">アイコン</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Description">説明</s:String>
+    <s:String x:Key="Lang.ServiceProvider.DescriptionPlaceholder">説明を入力（任意）</s:String>
+    <s:String x:Key="Lang.ServiceProvider.UsageCount">{0} アカウント</s:String>
+    <s:String x:Key="Lang.ServiceProvider.BuiltIn">組み込み</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SelectIcon">アイコンを選択</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SelectHint">プロバイダーを選択（任意）</s:String>
+    <s:String x:Key="Lang.ServiceProvider.CustomIssuerHint">カスタムプロバイダー名を入力</s:String>
+    <s:String x:Key="Lang.ServiceProvider.Custom">カスタムプロバイダー</s:String>
+    <s:String x:Key="Lang.ServiceProvider.NoIcon">アイコンなし</s:String>
+    <s:String x:Key="Lang.ServiceProvider.UploadSvg">SVGファイルをアップロード...</s:String>
+    <s:String x:Key="Lang.ServiceProvider.CurrentIcon">現在のアイコン</s:String>
+    <s:String x:Key="Lang.ServiceProvider.UploadedIcon">アップロード済みアイコン</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SelectSvg">SVGファイルを選択</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SvgFiles">SVGファイル</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SearchPlaceholder">プロバイダーを検索...</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SortBy">並び替え：</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SortByName">名前順</s:String>
+    <s:String x:Key="Lang.ServiceProvider.SortByUsage">使用回数順</s:String>
+    <s:String x:Key="Lang.ServiceProvider.EditTitle">プロバイダーを編集</s:String>
+    <s:String x:Key="Lang.ServiceProvider.CannotDeleteBuiltIn">組み込みプロバイダーは削除できません</s:String>
+    <s:String x:Key="Lang.ServiceProvider.DeleteConfirmTitle">プロバイダーを削除</s:String>
+    <s:String x:Key="Lang.ServiceProvider.DeleteConfirmMessage">プロバイダー「{0}」を削除してもよろしいですか？</s:String>
+    <s:String x:Key="Lang.Logs.Op.AddServiceProvider">プロバイダー追加</s:String>
+    <s:String x:Key="Lang.Logs.Op.DeleteServiceProvider">プロバイダー削除</s:String>
+    <s:String x:Key="Lang.Logs.Op.UpdateServiceProvider">プロバイダー更新</s:String>
+
+    <!-- Account Export -->
+    <s:String x:Key="Lang.Export.Title">アカウントをエクスポート</s:String>
+    <s:String x:Key="Lang.Export.Export">エクスポート</s:String>
+    <s:String x:Key="Lang.Export.ModeTitle">エクスポートモード</s:String>
+    <s:String x:Key="Lang.Export.SingleMode">単一アカウントエクスポート</s:String>
+    <s:String x:Key="Lang.Export.SingleModeDesc">1つのアカウントをエクスポート、QRコードまたはURL形式</s:String>
+    <s:String x:Key="Lang.Export.BatchMode">一括エクスポート</s:String>
+    <s:String x:Key="Lang.Export.BatchModeDesc">複数アカウントをエクスポート、QRコード形式のみ</s:String>
+    <s:String x:Key="Lang.Export.FormatTitle">エクスポート形式</s:String>
+    <s:String x:Key="Lang.Export.QrCodeFormat">QRコード</s:String>
+    <s:String x:Key="Lang.Export.QrCodeFormatDesc">スキャンしやすいQRコード画像を生成</s:String>
+    <s:String x:Key="Lang.Export.UrlFormat">URLリンク</s:String>
+    <s:String x:Key="Lang.Export.UrlFormatDesc">otpauth://プロトコルリンクを生成</s:String>
+    <s:String x:Key="Lang.Export.BatchOnlyQrCode">注意：一括エクスポートはQRコード形式のみ対応</s:String>
+    <s:String x:Key="Lang.Export.SelectAccounts">エクスポートするアカウントを選択</s:String>
+    <s:String x:Key="Lang.Export.Notice">セキュリティに関する注意</s:String>
+    <s:String x:Key="Lang.Export.Notice1">• エクスポートされたQRコードとURLにはアカウントキーが含まれています。安全に保管してください</s:String>
+    <s:String x:Key="Lang.Export.Notice2">• エクスポートファイルを他人と共有したり、公共ネットワークにアップロードしないでください</s:String>
+    <s:String x:Key="Lang.Export.Notice3">• 安全なオフラインの場所に保存することをお勧めします</s:String>
+    <s:String x:Key="Lang.Export.NoAccountSelected">少なくとも1つのアカウントを選択してください</s:String>
+    <s:String x:Key="Lang.Export.Generating">生成中...</s:String>
+    <s:String x:Key="Lang.Export.Success">エクスポート成功！</s:String>
+    <s:String x:Key="Lang.Export.Failed">エクスポート失敗</s:String>
+    <s:String x:Key="Lang.Export.SaveQrCode">QRコードを保存</s:String>
+    <s:String x:Key="Lang.Export.SaveUrl">URLを保存</s:String>
+    <s:String x:Key="Lang.Export.SelectFolder">保存先フォルダを選択</s:String>
+    <s:String x:Key="Lang.Export.PngImage">PNG画像</s:String>
+    <s:String x:Key="Lang.Export.TextFile">テキストファイル</s:String>
+    <s:String x:Key="Lang.Export.BatchSuccess">{0}/{1} アカウントのエクスポートに成功</s:String>
+    <s:String x:Key="Lang.ExportAccount">アカウントをエクスポート</s:String>
+
+    <!-- Context Menu & Dialog -->
+    <s:String x:Key="Lang.Dialog.AccountDetails">アカウント詳細</s:String>
+    <s:String x:Key="Lang.Dialog.MoveToCategory">カテゴリに移動</s:String>
+    <s:String x:Key="Lang.NotSet">未設定</s:String>
+    <s:String x:Key="Lang.Pin">ピン留め/解除</s:String>
+    <s:String x:Key="Lang.MoveToCategory">カテゴリに移動</s:String>
+    <s:String x:Key="Lang.Details">詳細を表示</s:String>
+    <s:String x:Key="Lang.Close">閉じる</s:String>
+    <s:String x:Key="Lang.Confirm">確認</s:String>
+    <s:String x:Key="Lang.RemoveFromCategory">カテゴリから削除</s:String>
+
+    <!-- バックアップインポートメッセージ -->
+    <s:String x:Key="Lang.Backup.Import.SignatureError">署名の検証に失敗しました。ファイルが改ざんされたか、パスワードが間違っている可能性があります</s:String>
+    <s:String x:Key="Lang.Backup.Import.DecryptError">復号に失敗しました。パスワードが間違っています</s:String>
+    <s:String x:Key="Lang.Backup.Import.DataFormatError">バックアップデータの形式が正しくありません</s:String>
+    <s:String x:Key="Lang.Backup.Import.RenameSuffix"> (インポート)</s:String>
+    <s:String x:Key="Lang.Backup.Import.FailedFormat">インポートに失敗しました: {0}</s:String>
+</ResourceDictionary>

@@ -1,0 +1,79 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        x:Class="TwoFactorAuth.Views.Dialogs.MergeCategoriesDialog"
+        Width="500" SizeToContent="Height"
+        Title="{DynamicResource Lang.Category.MergeTitle}"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+    <StackPanel Margin="24" Spacing="20">
+        <TextBlock Text="{DynamicResource Lang.Category.MergePrompt}" FontSize="14" TextWrapping="Wrap" />
+        
+        <StackPanel Spacing="8">
+            <TextBlock Text="{DynamicResource Lang.Category.SelectedCategories}" FontWeight="SemiBold" />
+            <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                    BorderThickness="1" 
+                    CornerRadius="4" 
+                    Padding="12"
+                    Background="{DynamicResource SemiColorBackground1}">
+                <ItemsControl x:Name="SelectedCategoriesControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="viewmodels:CategoryItemViewModel">
+                            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4">
+                                <PathIcon Data="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" 
+                                          Width="16" Height="16" 
+                                          Opacity="0.7"/>
+                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Count, StringFormat='({0})'}" 
+                                           VerticalAlignment="Center" 
+                                           Opacity="0.6"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </StackPanel>
+        
+        <StackPanel Spacing="8">
+            <TextBlock Text="{DynamicResource Lang.Category.MergeTarget}" FontWeight="SemiBold" />
+            <ComboBox x:Name="TargetCategoryCombo"
+                      HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="viewmodels:CategoryItemViewModel">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Count, StringFormat='({0})'}" Opacity="0.6"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="{DynamicResource Lang.Category.MergeHint}" 
+                       FontSize="12" 
+                       Opacity="0.6"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        
+        <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                BorderThickness="1" 
+                CornerRadius="4" 
+                Padding="12"
+                Background="{DynamicResource SemiColorBackground1}">
+            <StackPanel Spacing="4">
+                <TextBlock Text="{DynamicResource Lang.Category.MergePreview}" 
+                           FontWeight="SemiBold" 
+                           FontSize="12"/>
+                <TextBlock x:Name="PreviewText" 
+                           TextWrapping="Wrap" 
+                           FontSize="12"
+                           Opacity="0.8"/>
+            </StackPanel>
+        </Border>
+        
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Margin="0,0,12,0" />
+            <Button Content="{DynamicResource Lang.Category.Merge}" 
+                    Click="OnMergeClick" 
+                    Theme="{DynamicResource PrimaryButton}" />
+        </WrapPanel>
+    </StackPanel>
+</Window>

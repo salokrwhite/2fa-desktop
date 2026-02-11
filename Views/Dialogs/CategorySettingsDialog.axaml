@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TwoFactorAuth.Views.Dialogs"
+        x:Class="TwoFactorAuth.Views.Dialogs.CategorySettingsDialog"
+        x:DataType="local:CategorySettingsDialogViewModel"
+        Width="450" SizeToContent="Height"
+        Title="{DynamicResource Lang.Category.SettingsTitle}"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+    <StackPanel Margin="24" Spacing="20">
+        <TextBlock Text="{DynamicResource Lang.Category.SettingsPrompt}" FontSize="14" />
+        
+        <StackPanel Spacing="8">
+            <TextBlock Text="{DynamicResource Lang.Category.NameLabel}" FontWeight="SemiBold" />
+            <TextBox x:Name="NameTextBox"
+                     Text="{Binding CategoryName, Mode=TwoWay}" 
+                     Watermark="{DynamicResource Lang.Category.NameWatermark}"
+                     Classes="Large" />
+        </StackPanel>
+        
+        <StackPanel Spacing="8">
+            <TextBlock Text="{DynamicResource Lang.Category.DescriptionLabel}" FontWeight="SemiBold" />
+            <TextBox Text="{Binding Description, Mode=TwoWay}" 
+                     Watermark="{DynamicResource Lang.Category.DescriptionWatermark}"
+                     Classes="Large"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     Height="80"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            <TextBlock Text="{DynamicResource Lang.Category.DescriptionHint}" 
+                       FontSize="12" 
+                       Opacity="0.6" />
+        </StackPanel>
+        
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Margin="0,0,12,0" />
+            <Button Content="{DynamicResource Lang.Save}" Click="OnSaveClick" Theme="{DynamicResource PrimaryButton}" />
+        </WrapPanel>
+    </StackPanel>
+</Window>

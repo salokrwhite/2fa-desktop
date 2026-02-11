@@ -1,0 +1,45 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:TwoFactorAuth.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
+        x:Class="TwoFactorAuth.Views.Dialogs.LanguageSelectionDialog"
+        x:DataType="vm:LanguageSelectionViewModel"
+        Width="400" Height="250"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        SystemDecorations="None"
+        Background="Transparent"
+        TransparencyLevelHint="Transparent">
+
+    <Border CornerRadius="12" 
+            ClipToBounds="True"
+            Background="{DynamicResource SemiColorBackground1}" 
+            BorderBrush="{DynamicResource SemiColorBorder}" 
+            BorderThickness="1"
+            Margin="0"
+            BoxShadow="0 8 32 0 #40000000">
+        <Grid RowDefinitions="Auto,*,Auto" Margin="24">
+            <TextBlock Grid.Row="0" Text="{DynamicResource Lang.Settings.Language}" Classes="H4" Margin="0,0,0,16"/>
+
+            <ComboBox Grid.Row="1" 
+                      ItemsSource="{Binding AvailableLanguages}" 
+                      SelectedValue="{Binding SelectedLanguage}"
+                      SelectedValueBinding="{Binding Code}"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+                <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Theme="{DynamicResource TertiaryButton}" Margin="0,0,12,12"/>
+                <Button Content="{DynamicResource Lang.Save}" Click="OnSaveClick" Classes="Primary" Theme="{DynamicResource SolidButton}" Margin="0,0,12,12"/>
+            </WrapPanel>
+        </Grid>
+    </Border>
+</Window>

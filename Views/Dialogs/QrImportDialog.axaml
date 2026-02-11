@@ -1,0 +1,156 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        x:Class="TwoFactorAuth.Views.Dialogs.QrImportDialog"
+        x:DataType="viewmodels:QrImportViewModel"
+        Width="980"
+        Height="640"
+        Title="{DynamicResource Lang.QrImport.Title}"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel Margin="20" LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Spacing="12">
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="{DynamicResource Lang.QrImport.SelectImages}" Click="OnSelectImagesClick" Classes="Large" Margin="0,0,12,12" IsEnabled="{Binding !IsBusy}"/>
+                <Button Content="{DynamicResource Lang.QrImport.Clear}" Click="OnClearClick" Classes="Large" Margin="0,0,12,12" IsEnabled="{Binding !IsBusy}"/>
+                <TextBlock Text="{Binding SummaryText}" VerticalAlignment="Center" Opacity="0.7" Margin="0,0,0,12"/>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{DynamicResource Lang.Category.Label}" VerticalAlignment="Center" Margin="0,0,12,12"/>
+                <ComboBox Width="220"
+                          ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding SelectedCategory}"
+                          IsEnabled="{Binding !IsBusy}"
+                          Margin="0,0,12,12">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Text="{Binding StatusText}" VerticalAlignment="Center" Opacity="0.7" Margin="0,0,0,12"/>
+            </WrapPanel>
+
+            <ProgressBar IsIndeterminate="True" Height="4" IsVisible="{Binding IsBusy}"/>
+        </StackPanel>
+
+        <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Margin="0,0,10,10" IsEnabled="{Binding !IsBusy}"/>
+            <Button Content="{DynamicResource Lang.QrImport.Import}" Click="OnImportClick" Classes="Primary" Margin="0,0,10,10" IsEnabled="{Binding CanImport}"/>
+        </WrapPanel>
+
+        <DataGrid ItemsSource="{Binding Items}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  CanUserResizeColumns="True"
+                  GridLinesVisibility="None"
+                  HeadersVisibility="Column"
+                  SelectionMode="Single"
+                  Focusable="False"
+                  Margin="0,12,0,12">
+            <DataGrid.Styles>
+                <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+                    <Setter Property="Fill" Value="Transparent"/>
+                </Style>
+                <Style Selector="DataGridRow:selected:focus /template/ Rectangle#BackgroundRectangle">
+                    <Setter Property="Fill" Value="Transparent"/>
+                </Style>
+                <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+                    <Setter Property="Fill" Value="{DynamicResource SemiColorBackground2}"/>
+                </Style>
+                <Style Selector="DataGridCell:selected">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="DataGridCell:current /template/ Grid#FocusVisual">
+                    <Setter Property="IsVisible" Value="False"/>
+                </Style>
+                <Style Selector="DataGridCell /template/ Grid#FocusVisual">
+                    <Setter Property="IsVisible" Value="False"/>
+                </Style>
+            </DataGrid.Styles>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="80" MinWidth="80" CanUserSort="False">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox IsThreeState="True"
+                                      IsEnabled="{Binding $parent[DataGrid].((viewmodels:QrImportViewModel)DataContext).CanSelectAll}"
+                                      IsChecked="{Binding $parent[DataGrid].((viewmodels:QrImportViewModel)DataContext).SelectAllState, Mode=TwoWay}"
+                                      PointerPressed="OnSelectAllPointerPressed"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.SourceFile}" Width="*" MinWidth="180" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SourceFile}" Margin="8,0" VerticalAlignment="Center" ToolTip.Tip="{Binding SourceFile}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.Issuer}" Width="Auto" MinWidth="140" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Issuer}" Margin="8,0" VerticalAlignment="Center" ToolTip.Tip="{Binding Issuer}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.AccountName}" Width="Auto" MinWidth="200" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center" ToolTip.Tip="{Binding Name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.Type}" Width="Auto" MinWidth="80" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Type}" Margin="8,0" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.Digits}" Width="Auto" MinWidth="70" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Digits}" Margin="8,0" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.Period}" Width="Auto" MinWidth="80" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Period}" Margin="8,0" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.Status}" Width="Auto" MinWidth="120" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Status}" Margin="8,0" VerticalAlignment="Center" ToolTip.Tip="{Binding StatusDetails}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{DynamicResource Lang.QrImport.Column.RawText}" Width="Auto" MinWidth="220" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding RawText}" Margin="8,0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding RawText}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

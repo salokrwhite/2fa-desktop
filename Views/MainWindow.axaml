@@ -1,0 +1,1356 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        xmlns:models="clr-namespace:TwoFactorAuth.Models"
+        xmlns:views="clr-namespace:TwoFactorAuth.Views.Wizard"
+        xmlns:v="clr-namespace:TwoFactorAuth.Views"
+        xmlns:controls="clr-namespace:TwoFactorAuth.Controls"
+        xmlns:converters="clr-namespace:TwoFactorAuth.Converters"
+        x:Class="TwoFactorAuth.Views.MainWindow"
+        x:DataType="viewmodels:MainViewModel"
+        Width="1100"
+        Height="700"
+        Title="{DynamicResource Lang.AppTitle}"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <converters:MultiSelectButtonTextConverter x:Key="MultiSelectButtonTextConverter"/>
+        <converters:SelectButtonTextConverter x:Key="SelectButtonTextConverter"/>
+        <converters:IconColorConverter x:Key="IconColorConverter"/>
+        
+        <DataTemplate x:Key="ListTemplate" x:DataType="viewmodels:AccountItemViewModel">
+             <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,8" 
+                     Background="{DynamicResource SemiColorBackground1}" Cursor="Hand"
+                     PointerPressed="OnCardPointerPressed">
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{DynamicResource Lang.Details}" Click="OnDetailsClick" IsVisible="{Binding !ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Lang.Edit}" Click="OnEditClick" IsVisible="{Binding !ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Lang.Pin}" Click="OnPinClick" IsVisible="{Binding !ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M16 9V4l1 1c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1l1-1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Lang.BatchPin}" Command="{Binding ParentViewModel.PinSelectedAsync}" IsVisible="{Binding ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M16 9V4l1 1c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1l1-1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="{DynamicResource Lang.MoveToCategory}" Click="OnMoveToCategoryClick" IsVisible="{Binding !ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Lang.BatchMoveToCategory}" Click="OnBatchMoveToCategoryClick" IsVisible="{Binding ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="{DynamicResource Lang.MultiSelect}" Click="OnToggleSelectionModeClick" IsVisible="{Binding !ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="-" />
+                        <MenuItem Header="{DynamicResource Lang.ExportAccount}" Click="OnExportAccountClick" IsVisible="{Binding !ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Lang.ExportAccount}" Click="OnBatchExportAccountClick" IsVisible="{Binding ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="-" />
+                        <MenuItem Header="{DynamicResource Lang.Delete}" Click="OnDeleteClick" Foreground="{DynamicResource SemiColorDanger}" IsVisible="{Binding !ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Lang.DeleteSelected}" Click="OnDeleteSelectedClick" Foreground="{DynamicResource SemiColorDanger}" IsVisible="{Binding ParentViewModel.IsSelectionMode}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </Border.ContextMenu>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                        <CheckBox IsChecked="{Binding IsSelected}" 
+                                  IsVisible="{Binding ParentViewModel.IsSelectionMode}" 
+                                  Margin="0,0,12,0" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" MinWidth="120">
+                            <StackPanel Spacing="4" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding HasIssuerIcon}">
+                                    <Image Source="{Binding IssuerIconImage}" Width="32" Height="32"
+                                           VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" FontSize="16" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel IsVisible="{Binding !HasIssuerIcon}" Spacing="2">
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <TextBlock Text="{DynamicResource Lang.AccountName}" Opacity="0.7"/>
+                                        <TextBlock Text=":" Opacity="0.7"/>
+                                        <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <TextBlock Text="{DynamicResource Lang.Issuer}" Opacity="0.7" FontSize="12" />
+                                        <TextBlock Text=":" Opacity="0.7" FontSize="12" />
+                                        <TextBlock Text="{Binding DisplayIssuer}" Opacity="0.7" FontSize="12" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                            <PathIcon Data="M16 9V4l1 1c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1l1-1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z" 
+                                      Width="12" Height="12" 
+                                      Foreground="{DynamicResource SemiColorPrimary}" 
+                                      IsVisible="{Binding IsFavorite}"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button DockPanel.Dock="Right" Content="{DynamicResource Lang.Copy}" Click="OnCopyClick" 
+                            Theme="{DynamicResource SolidButton}" Classes="Small" 
+                            Margin="16,0,0,0" VerticalAlignment="Center"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Spacing="12">
+                        <TextBlock Text="{Binding Otp}" FontSize="28" FontFamily="Consolas, Monospace" 
+                                   Foreground="{DynamicResource SemiColorPrimary}" FontWeight="Bold" 
+                                   LetterSpacing="3" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center"
+                                    IsVisible="{Binding Type, Converter={x:Static ObjectConverters.IsNotNull}}">
+                            <controls:CountdownPieControl Angle="{Binding ProgressAngle}" 
+                                                          Fill="{DynamicResource SemiColorPrimary}"
+                                                          TrackFill="{DynamicResource SemiColorFillQuaternary}"
+                                                          Width="36" Height="36"/>
+                            <TextBlock Text="{Binding RemainingSeconds, StringFormat='{}{0}s'}" 
+                                       FontSize="13" FontWeight="Bold"
+                                       Foreground="{DynamicResource SemiColorText0}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </DataTemplate>
+
+    </Window.Resources>
+    
+    <Window.DataTemplates>
+        <DataTemplate x:DataType="viewmodels:SetupWizardViewModel">
+            <views:SetupWizardView />
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:DashboardViewModel">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Spacing="24">
+                    <TextBlock Text="{DynamicResource Lang.Greeting.Morning}" Classes="H3" FontWeight="Bold" FontSize="32" IsVisible="{Binding IsMorning}" />
+                    <TextBlock Text="{DynamicResource Lang.Greeting.Afternoon}" Classes="H3" FontWeight="Bold" FontSize="32" IsVisible="{Binding IsAfternoon}" />
+                    <TextBlock Text="{DynamicResource Lang.Greeting.Evening}" Classes="H3" FontWeight="Bold" FontSize="32" IsVisible="{Binding IsEvening}" />
+            
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="24">
+                        <Border Grid.Column="0" Height="120" BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="24" Background="{DynamicResource SemiColorBackground1}">
+                            <StackPanel VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+                                    <PathIcon Data="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" Width="20" Height="20" Foreground="{DynamicResource SemiColorPrimary}"/>
+                                    <TextBlock Text="{DynamicResource Lang.Nav.AllAccounts}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding AccountCount}" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource SemiColorPrimary}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Height="120" BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="24" Background="{DynamicResource SemiColorBackground1}">
+                            <StackPanel VerticalAlignment="Center">
+                                 <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+                                    <PathIcon Data="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" Width="20" Height="20" Foreground="{DynamicResource SemiColorPrimary}"/>
+                                    <TextBlock Text="{DynamicResource Lang.Nav.Category}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding CategoryCount}" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource SemiColorPrimary}"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border Grid.Column="2" Height="120" BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="24" Background="{DynamicResource SemiColorBackground1}">
+                            <StackPanel VerticalAlignment="Center">
+                                 <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+                                    <PathIcon Data="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" Width="20" Height="20" Foreground="{DynamicResource SemiColorPrimary}"/>
+                                    <TextBlock Text="{DynamicResource Lang.Nav.Logs}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding LogCount}" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource SemiColorPrimary}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,24,0,0">
+                    <StackPanel Spacing="24">
+                        <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="20" Background="{DynamicResource SemiColorBackground1}">
+                            <StackPanel Spacing="16">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <PathIcon Data="M7 2v11h3v9l7-12h-4l4-8z" Width="18" Height="18" Foreground="{DynamicResource SemiColorPrimary}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource Lang.Dashboard.QuickActions}" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <WrapPanel Orientation="Horizontal">
+                                    <Button Click="OnAddClick" Classes="Large" Margin="0,0,12,12" MinWidth="140" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <PathIcon Data="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" Width="18" Height="18" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource Lang.Dashboard.AddAccount}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Command="{Binding ScanQrCodeCommand}" Classes="Large" Margin="0,0,12,12" MinWidth="140" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <PathIcon Data="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5zm-6 8h1.5v1.5H13V13zm1.5 1.5H16V16h-1.5v-1.5zM16 13h1.5v1.5H16V13zm-3 3h1.5v1.5H13V16zm1.5 1.5H16V19h-1.5v-1.5zM16 16h1.5v1.5H16V16zm1.5-1.5H19V16h-1.5v-1.5zm0 3H19V19h-1.5v-1.5zM22 7h-2V4h-3V2h5v5zm0 15v-5h-2v3h-3v2h5zM2 22h5v-2H4v-3H2v5zM2 2v5h2V4h3V2H2z" Width="18" Height="18" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource Lang.Dashboard.ScanQR}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Command="{Binding ImportBackupCommand}" Classes="Large" Margin="0,0,12,12" MinWidth="140" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <PathIcon Data="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" Width="18" Height="18" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{DynamicResource Lang.Dashboard.ImportBackup}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,12,12" VerticalAlignment="Center">
+                                        <Button Command="{Binding LockAppCommand}" Classes="Large" MinWidth="140" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="{Binding IsMasterPasswordSet}">
+                                            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <PathIcon Data="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" Width="18" Height="18" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{DynamicResource Lang.Dashboard.LockApp}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                        <TextBlock Text="{DynamicResource Lang.Dashboard.MasterPasswordNotSet}" FontSize="12" Foreground="{DynamicResource SemiColorText2}" VerticalAlignment="Center" IsVisible="{Binding !IsMasterPasswordSet}"/>
+                                    </StackPanel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="20" Background="{DynamicResource SemiColorBackground1}">
+                            <StackPanel Spacing="12">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <PathIcon Data="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" Width="18" Height="18" Foreground="{DynamicResource SemiColorPrimary}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource Lang.Dashboard.SecurityReminder}" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Spacing="8">
+                                    <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding ShowBackupWarning}">
+                                        <PathIcon Data="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" Width="16" Height="16" Foreground="{DynamicResource SemiColorWarning}" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                                        <TextBlock Text="{Binding BackupWarningText}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsMasterPasswordSet}">
+                                        <PathIcon Data="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" Width="16" Height="16" Foreground="{DynamicResource SemiColorSuccess}" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                                        <TextBlock Text="{Binding MasterPasswordStatusText}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding !IsMasterPasswordSet}">
+                                        <PathIcon Data="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" Width="16" Height="16" Foreground="{DynamicResource SemiColorWarning}" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                                        <TextBlock Text="{Binding MasterPasswordStatusText}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsAutoLockEnabled}">
+                                        <PathIcon Data="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" Width="16" Height="16" Foreground="{DynamicResource SemiColorSuccess}" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                                        <TextBlock Text="{Binding AutoLockStatusText}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding !IsAutoLockEnabled}">
+                                        <PathIcon Data="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" Width="16" Height="16" Foreground="{DynamicResource SemiColorWarning}" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                                        <TextBlock Text="{Binding AutoLockStatusText}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        
+                        <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="20" Background="{DynamicResource SemiColorBackground1}">
+                            <StackPanel Spacing="12">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <PathIcon Data="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" Width="18" Height="18" Foreground="{DynamicResource SemiColorPrimary}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource Lang.Dashboard.RecentActivity}" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <ItemsControl ItemsSource="{Binding RecentActivities}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock Text="{DynamicResource Lang.Dashboard.NoRecentActivity}" 
+                                           IsVisible="{Binding !RecentActivities.Count}"
+                                           Opacity="0.6"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:AccountListViewModel">
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Top" Margin="0,0,0,20" LastChildFill="True">
+                    <WrapPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="4" Margin="0,0,12,12">
+                            <ComboBox Width="200" 
+                                      PlaceholderText="{DynamicResource Lang.AllCategories}"
+                                      ItemsSource="{Binding Categories}"
+                                      SelectedItem="{Binding SelectedCategory}"
+                                      Classes="Large"
+                                      VerticalAlignment="Center"
+                                      IsTextSearchEnabled="True"
+                                      MaxDropDownHeight="240"
+                                      >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Theme="{DynamicResource TransparentButton}" 
+                                    Command="{Binding ClearCategoryFilter}"
+                                    IsVisible="{Binding SelectedCategory, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                    ToolTip.Tip="{DynamicResource Lang.ClearFilter}"
+                                    Height="40" Width="40" CornerRadius="4" VerticalAlignment="Center">
+                                <PathIcon Data="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" Width="18" Height="18" Foreground="{DynamicResource SemiColorText2}"/>
+                            </Button>
+                        </StackPanel>
+
+                        <AutoCompleteBox Watermark="{DynamicResource Lang.SearchPlaceholder}" 
+                                         Text="{Binding SearchQuery}" 
+                                         ItemsSource="{Binding AllAccountNames}"
+                                         FilterMode="Contains"
+                                         Classes="Large"
+                                         MinWidth="200"
+                                         VerticalAlignment="Center"
+                                         Margin="0,0,12,12"/>
+                    </WrapPanel>
+
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="{DynamicResource Lang.AddAccount}" Click="OnAddClick" Classes="Primary Large" IsVisible="{Binding !IsSelectionMode}" Margin="0,0,12,12" VerticalAlignment="Center"/>
+                        <Button Content="{DynamicResource Lang.SelectAll}" Click="OnSelectAllClick" Classes="Large" IsVisible="{Binding IsSelectionMode}" Margin="0,0,12,12" VerticalAlignment="Center"/>
+                        <Button Content="{DynamicResource Lang.DeleteSelected}" Click="OnDeleteSelectedClick" Theme="{DynamicResource DangerButton}" Classes="Large" IsVisible="{Binding IsSelectionMode}" Margin="0,0,12,12" VerticalAlignment="Center"/>
+                        <ToggleButton IsChecked="{Binding IsSelectionMode}" Content="{Binding IsSelectionMode, Converter={StaticResource SelectButtonTextConverter}}" Classes="Large" VerticalAlignment="Center" Margin="0,0,0,12"/>
+                    </WrapPanel>
+                </DockPanel>
+
+                <DockPanel Margin="0,20,0,0">
+                    <Border DockPanel.Dock="Top" IsVisible="{Binding PinnedAccounts.Count}" 
+                            BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="0,0,0,1" 
+                            Margin="0,0,0,16" Padding="0,0,0,8"
+                            MaxHeight="300">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                             <ItemsControl ItemsSource="{Binding PinnedAccounts}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="viewmodels:AccountItemViewModel">
+                                        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ListTemplate}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+
+                    <ListBox ItemsSource="{Binding UnpinnedAccounts}" 
+                             SelectedItem="{Binding SelectedAccount}" 
+                             Background="Transparent"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.Styles>
+                             <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                                 <Setter Property="Background" Value="Transparent" />
+                             </Style>
+                             <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                                 <Setter Property="Background" Value="Transparent" />
+                             </Style>
+                        </ListBox.Styles>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="viewmodels:AccountItemViewModel">
+                                <ContentControl Content="{Binding}" ContentTemplate="{StaticResource ListTemplate}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:CategoryListViewModel">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Spacing="24">
+                    <TextBlock Text="{DynamicResource Lang.Category.Title}" Classes="H3" FontWeight="Bold" FontSize="25"/>
+                    <TextBox Width="300" 
+                             Watermark="{DynamicResource Lang.Category.SearchPlaceholder}" 
+                             Text="{Binding SearchText}" 
+                             HorizontalAlignment="Left"
+                             Margin="0,0,0,0">
+                        <TextBox.InnerLeftContent>
+                            <PathIcon Data="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" 
+                                      Width="16" Height="16" 
+                                      Margin="8,0,0,0"/>
+                        </TextBox.InnerLeftContent>
+                    </TextBox>
+                    
+                    <WrapPanel Orientation="Horizontal">
+                         <TextBox Width="300" Watermark="{DynamicResource Lang.Category.Placeholder}" Text="{Binding NewCategoryName}" Margin="0,0,12,12"/>
+                         <Button Content="{DynamicResource Lang.Add}" Command="{Binding AddCategoryAsync}" Classes="Primary" Margin="0,0,12,12"/>
+                         <Button Content="{Binding IsMultiSelectMode, Converter={StaticResource MultiSelectButtonTextConverter}}"
+                                 Command="{Binding ToggleMultiSelectModeCommand}" 
+                                 Margin="0,0,12,12"/>
+                         <Button Content="{DynamicResource Lang.Category.Merge}" 
+                                 Click="OnMergeCategoriesClick"
+                                 IsVisible="{Binding IsMultiSelectMode}"
+                                 Classes="Primary"
+                                 Margin="0,0,12,12"/>
+                     </WrapPanel>
+                     
+                     <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="16" Background="{DynamicResource SemiColorBackground1}">
+                         <WrapPanel Orientation="Horizontal">
+                             <TextBlock Text="{DynamicResource Lang.Category.SortBy}" VerticalAlignment="Center" Opacity="0.7" Margin="0,0,12,0"/>
+                             <Button Content="{DynamicResource Lang.Category.SortByCount}" 
+                                     Command="{Binding SortByAccountCountCommand}" 
+                                     Classes="Small"
+                                     ToolTip.Tip="{DynamicResource Lang.Category.SortByCountHint}"
+                                     Margin="0,0,12,0"/>
+                             <Button Content="{DynamicResource Lang.Category.SortByName}" 
+                                     Command="{Binding SortByNameCommand}" 
+                                     Classes="Small"
+                                     ToolTip.Tip="{DynamicResource Lang.Category.SortByNameHint}"
+                                     Margin="0,0,12,0"/>
+                             <TextBlock Text="{DynamicResource Lang.Category.DragHint}" 
+                                        VerticalAlignment="Center" 
+                                        Opacity="0.5" 
+                                        FontSize="12"
+                                        Margin="12,0,0,0"/>
+                         </WrapPanel>
+                     </Border>
+                </StackPanel>
+                
+                <ListBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" Margin="0,24,0,0" Background="Transparent"
+                         x:Name="CategoryListBox">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0,0,0,8" />
+                            <Setter Property="Transitions">
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                                </Transitions>
+                            </Setter>
+                        </Style>
+                        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </ListBox.Styles>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:CategoryItemViewModel">
+                            <Border Background="{DynamicResource SemiColorBackground1}" 
+                                    BorderBrush="{DynamicResource SemiColorBorder}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="6"
+                                    Opacity="{Binding DragOpacity}"
+                                    DragDrop.AllowDrop="True">
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{DynamicResource Lang.Category.ViewProperties}"
+                                                  Click="OnViewCategoryPropertiesClick"
+                                                  IsVisible="{Binding !$parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).IsMultiSelectMode}">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z" 
+                                                          Width="16" Height="16" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="{DynamicResource Lang.Category.MergeCategories}"
+                                                  Click="OnMergeCategoriesClick"
+                                                  IsVisible="{Binding $parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).IsMultiSelectMode}">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M17 20.41L18.41 19 15 15.59 13.59 17 17 20.41zM7.5 8H11v5.59L5.59 19 7 20.41l6-6V8h3.5L12 3.5 7.5 8z" 
+                                                          Width="16" Height="16" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <Separator IsVisible="{Binding $parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).IsMultiSelectMode}" />
+                                        <MenuItem Header="{DynamicResource Lang.Category.Settings}"
+                                                  Click="OnCategorySettingsClick"
+                                                  CommandParameter="{Binding}"
+                                                  IsVisible="{Binding !$parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).IsMultiSelectMode}">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L3.16 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" 
+                                                          Width="16" Height="16" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="{DynamicResource Lang.Delete}"
+                                                  Command="{Binding $parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).DeleteCategoryAsync}"
+                                                  CommandParameter="{Binding}"
+                                                  IsVisible="{Binding !$parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).IsMultiSelectMode}">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" 
+                                                          Width="16" Height="16" 
+                                                          Foreground="{DynamicResource SemiColorDanger}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                            <Expander HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="0">
+                                <Expander.Header>
+                                    <DockPanel LastChildFill="True" Height="40">
+                                        <CheckBox DockPanel.Dock="Left"
+                                                  IsVisible="{Binding $parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).IsMultiSelectMode}"
+                                                  Checked="OnCategoryCheckboxChanged"
+                                                  Unchecked="OnCategoryCheckboxChanged"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,12,0"/>
+                                        
+                                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                                            <Button Click="OnCategoryDetailClick"
+                                                    CommandParameter="{Binding}" 
+                                                    Classes="Small"
+                                                    VerticalAlignment="Center"
+                                                    ToolTip.Tip="{DynamicResource Lang.Category.DetailTooltip}">
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <PathIcon Data="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z" 
+                                                              Width="16" Height="16" />
+                                                    <TextBlock Text="{DynamicResource Lang.Category.Detail}" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Click="OnCategorySettingsClick"
+                                                    CommandParameter="{Binding}" 
+                                                    Classes="Small"
+                                                    VerticalAlignment="Center"
+                                                    ToolTip.Tip="{DynamicResource Lang.Category.SettingsTooltip}">
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <PathIcon Data="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L3.16 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.58 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" 
+                                                              Width="16" Height="16" />
+                                                    <TextBlock Text="{DynamicResource Lang.Category.Settings}" />
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Content="{DynamicResource Lang.Delete}" 
+                                                    Command="{Binding $parent[ListBox].((viewmodels:CategoryListViewModel)DataContext).DeleteCategoryAsync}" 
+                                                    CommandParameter="{Binding}" 
+                                                    Theme="{DynamicResource DangerButton}" Classes="Small"
+                                                    VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        
+                                        <Border DockPanel.Dock="Left" 
+                                                VerticalAlignment="Center"
+                                                Margin="0,0,12,0"
+                                                Background="Transparent"
+                                                Cursor="SizeAll"
+                                                ToolTip.Tip="{DynamicResource Lang.Category.DragToReorder}"
+                                                PointerPressed="OnCategoryDragStart"
+                                                PointerMoved="OnCategoryDragMove"
+                                                Tag="{Binding}">
+                                            <PathIcon Data="M9 5v2H5V5zm4 0v2h4V5zm-4 6v2H5v-2zm4 0v2h4v-2zm-4 6v2H5v-2zm4 0v2h4v-2z" 
+                                                      Width="20" Height="20" 
+                                                      Opacity="0.5"
+                                                      Margin="4,8"/>
+                                        </Border>
+                                        
+                                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Count, StringFormat='({0})'}" VerticalAlignment="Center" Opacity="0.6"/>
+                                            <PathIcon IsVisible="{Binding HasDescription}"
+                                                      Data="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" 
+                                                      Width="16" Height="16" 
+                                                      Opacity="0.6"
+                                                      ToolTip.Tip="{Binding Description}"
+                                                      VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Expander.Header>
+                                <Expander.Content>
+                                    <StackPanel>
+                                        <Grid ColumnDefinitions="2*,2*,100" Margin="12,8,12,8" Opacity="0.6">
+                                            <TextBlock Grid.Column="0" Text="{DynamicResource Lang.AccountName}" FontSize="12"/>
+                                            <TextBlock Grid.Column="1" Text="{DynamicResource Lang.Issuer}" FontSize="12"/>
+                                            <TextBlock Grid.Column="2" Text="" FontSize="12"/>
+                                        </Grid>
+                                        <ListBox ItemsSource="{Binding Accounts}" Background="Transparent" Margin="0">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate x:DataType="viewmodels:CategoryAccountItemViewModel">
+                                                    <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="0,0,0,1" Padding="12">
+                                                        <Grid ColumnDefinitions="2*,2*,100">
+                                                            <TextBlock Grid.Column="0" Text="{Binding DisplayName}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,8,0"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding DisplayIssuer}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,8,0" Opacity="0.7"/>
+                                                            
+                                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Right">
+                                                                 <ToggleButton Theme="{DynamicResource TransparentButton}" IsChecked="{Binding IsFavorite}" Padding="4" ToolTip.Tip="{DynamicResource Lang.Pin}">
+                                                                     <ToggleButton.Styles>
+                                                                         <Style Selector="ToggleButton PathIcon">
+                                                                             <Setter Property="Foreground" Value="{DynamicResource SemiColorText2}" />
+                                                                         </Style>
+                                                                         <Style Selector="ToggleButton:checked PathIcon">
+                                                                             <Setter Property="Foreground" Value="#FFFFFF" />
+                                                                         </Style>
+                                                                     </ToggleButton.Styles>
+                                                                    <PathIcon Data="M16 9V4l1 1c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1l1-1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z" 
+                                                                              Width="16" Height="16" />
+                                                                </ToggleButton>
+                                                                
+                                                                <Button Theme="{DynamicResource TransparentButton}" Command="{Binding RemoveFromCategory}" Padding="4" ToolTip.Tip="{DynamicResource Lang.RemoveFromCategory}">
+                                                                    <PathIcon Data="M7 11v2h10v-2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" Width="16" Height="16" Foreground="{DynamicResource SemiColorText2}"/>
+                                                                </Button>
+
+                                                                <Button Theme="{DynamicResource TransparentButton}" Click="OnCategoryAccountDeleteClick" Padding="4" ToolTip.Tip="{DynamicResource Lang.Delete}">
+                                                                    <PathIcon Data="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" Width="16" Height="16" Foreground="{DynamicResource SemiColorDanger}"/>
+                                                                </Button>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
+                                </Expander.Content>
+                            </Expander>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:ServiceProviderListViewModel">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Spacing="24">
+                    <TextBlock Text="{DynamicResource Lang.ServiceProvider.Title}" Classes="H3" FontWeight="Bold" FontSize="25"/>
+
+                    <TextBox Width="300"
+                             Watermark="{DynamicResource Lang.ServiceProvider.SearchPlaceholder}"
+                             Text="{Binding SearchText}"
+                             HorizontalAlignment="Left">
+                        <TextBox.InnerLeftContent>
+                            <PathIcon Data="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                                      Width="16" Height="16"
+                                      Margin="8,0,0,0"/>
+                        </TextBox.InnerLeftContent>
+                    </TextBox>
+
+                    <WrapPanel Orientation="Horizontal">
+                        <TextBox Width="200" Watermark="{DynamicResource Lang.ServiceProvider.NamePlaceholder}" Text="{Binding NewProviderName}" Margin="0,0,12,12"/>
+                        <ComboBox ItemsSource="{Binding AvailableIcons}"
+                                  SelectedItem="{Binding SelectedIcon}"
+                                  PlaceholderText="{DynamicResource Lang.ServiceProvider.SelectIcon}"
+                                  Width="200"
+                                  Margin="0,0,12,12"
+                                  SelectionChanged="OnServiceProviderIconSelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="viewmodels:IconOption">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Image Source="{Binding IconImage}" Width="18" Height="18"
+                                               IsVisible="{Binding HasIcon}" />
+                                        <TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button Content="{DynamicResource Lang.Add}" Command="{Binding AddProviderAsync}" Classes="Primary" Margin="0,0,12,12"/>
+                    </WrapPanel>
+
+                    <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="16" Background="{DynamicResource SemiColorBackground1}">
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource Lang.ServiceProvider.SortBy}" VerticalAlignment="Center" Opacity="0.7" Margin="0,0,12,0"/>
+                            <Button Content="{DynamicResource Lang.ServiceProvider.SortByName}"
+                                    Command="{Binding SortByNameCommand}"
+                                    Classes="Small"
+                                    Margin="0,0,12,0"/>
+                            <Button Content="{DynamicResource Lang.ServiceProvider.SortByUsage}"
+                                    Command="{Binding SortByUsageCommand}"
+                                    Classes="Small"
+                                    Margin="0,0,12,0"/>
+                        </WrapPanel>
+                    </Border>
+                </StackPanel>
+
+                <ListBox ItemsSource="{Binding Providers}" Margin="0,24,0,0" Background="Transparent">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0,0,0,8" />
+                        </Style>
+                        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </ListBox.Styles>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:ServiceProviderItemViewModel">
+                            <Border Background="{DynamicResource SemiColorBackground1}"
+                                    BorderBrush="{DynamicResource SemiColorBorder}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    Padding="16">
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{DynamicResource Lang.Edit}"
+                                                  Click="OnServiceProviderEditClick">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                                                          Width="16" Height="16" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="{DynamicResource Lang.Delete}"
+                                                  Click="OnServiceProviderDeleteClick">
+                                            <MenuItem.Icon>
+                                                <PathIcon Data="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                                                          Width="16" Height="16"
+                                                          Foreground="{DynamicResource SemiColorDanger}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+                                        <Border Background="{DynamicResource SemiColorFillQuaternary}"
+                                                CornerRadius="4" Padding="8,4"
+                                                IsVisible="{Binding IsBuiltIn}">
+                                            <TextBlock Text="{DynamicResource Lang.ServiceProvider.BuiltIn}" FontSize="11" Opacity="0.7"/>
+                                        </Border>
+                                        <Button Content="{DynamicResource Lang.Edit}" Click="OnServiceProviderEditClick" Theme="{DynamicResource TertiaryButton}" Classes="Small" Margin="0,0,4,0"/>
+                                        <Button Content="{DynamicResource Lang.Delete}" Click="OnServiceProviderDeleteClick" Theme="{DynamicResource DangerButton}" Classes="Small"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                                        <Image Source="{Binding IconImage}" Width="32" Height="32" IsVisible="{Binding HasIcon}" />
+                                        <Border Width="32" Height="32" CornerRadius="4"
+                                                Background="{DynamicResource SemiColorFillQuaternary}"
+                                                IsVisible="{Binding !HasIcon}">
+                                            <PathIcon Data="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"
+                                                      Width="18" Height="18" Opacity="0.5"/>
+                                        </Border>
+                                        <StackPanel Spacing="2">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="14"/>
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <TextBlock Text="{Binding Description}" FontSize="12" Opacity="0.6"
+                                                           IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                                <TextBlock FontSize="12" Opacity="0.5">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} 个账号使用">
+                                                            <Binding Path="UsageCount" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:OperationLogViewModel">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16" Spacing="16">
+                    <TextBlock Text="{DynamicResource Lang.Logs.Title}" Classes="H3" FontWeight="Bold" FontSize="25"/>
+                    <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="16" Background="{DynamicResource SemiColorBackground1}">
+                        <StackPanel Spacing="8">
+                            <WrapPanel Orientation="Horizontal">
+                                <Button Content="{DynamicResource Lang.Logs.Export}" Command="{Binding ExportLogsCommand}" Classes="Primary" Margin="0,0,12,12"/>
+                                <Button Content="{DynamicResource Lang.Logs.DeleteSelected}" Command="{Binding DeleteSelectedCommand}" Margin="0,0,12,12"/>
+                                <Button Content="{DynamicResource Lang.Logs.ClearAll}" Command="{Binding ClearAllLogsCommand}" Margin="0,0,12,12"/>
+                                <Button Content="{DynamicResource Lang.Logs.CancelSelection}" Command="{Binding CancelSelectionCommand}" Margin="0,0,12,12"/>
+                            </WrapPanel>
+                            
+                            <DockPanel>
+                                <CheckBox IsChecked="{Binding ShowRawLog}" 
+                                          Content="{DynamicResource Lang.Logs.ShowRawFormat}"
+                                          ToolTip.Tip="{DynamicResource Lang.Logs.ShowRawFormatHint}"
+                                          DockPanel.Dock="Left"/>
+                                <TextBlock Opacity="0.7" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    <Run Text="{DynamicResource Lang.Logs.TotalPrefix}"/>
+                                    <Run Text="{Binding LogCount}"/>
+                                    <Run Text="{DynamicResource Lang.Logs.TotalSuffix}"/>
+                                </TextBlock>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+                    
+                    <TextBlock Text="{Binding LoadError}" Foreground="{DynamicResource SemiColorDanger}" TextWrapping="Wrap" IsVisible="{Binding LoadError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                </StackPanel>
+                
+                <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Background="{DynamicResource SemiColorBackground1}">
+                    <DockPanel>
+                        <Border DockPanel.Dock="Bottom" 
+                                BorderBrush="{DynamicResource SemiColorBorder}" 
+                                BorderThickness="0,1,0,0" 
+                                Padding="16" 
+                                Background="{DynamicResource SemiColorBackground1}">
+                            <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Right">
+                                <TextBlock Text="{DynamicResource Lang.Logs.PageSizeLabel}" VerticalAlignment="Center" Opacity="0.7"/>
+                                <ComboBox ItemsSource="{Binding PageSizeOptions}"
+                                          SelectedValue="{Binding PageSize}"
+                                          SelectedValueBinding="{Binding Value}"
+                                          MinWidth="80"
+                                          VerticalAlignment="Center">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate x:DataType="viewmodels:PageSizeOption">
+                                            <TextBlock Text="{Binding DisplayText}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                        </Border>
+                        
+                        <DataGrid ItemsSource="{Binding Logs}" 
+                                      IsReadOnly="False" 
+                                      CanUserResizeColumns="True" 
+                                      CanUserSortColumns="True"
+                                      GridLinesVisibility="All"
+                                      HeadersVisibility="Column"
+                                      SelectionMode="Single"
+                                      AutoGenerateColumns="False"
+                                      RowBackground="{DynamicResource SemiColorBackground1}"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Auto"
+                                      BorderThickness="0"
+                                      Focusable="False"
+                                      AttachedToVisualTree="OnLogDataGridAttached">
+                                <DataGrid.Styles>
+                                    <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+                                        <Setter Property="Fill" Value="Transparent"/>
+                                    </Style>
+                                    <Style Selector="DataGridRow:selected:focus /template/ Rectangle#BackgroundRectangle">
+                                        <Setter Property="Fill" Value="Transparent"/>
+                                    </Style>
+                                    <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+                                        <Setter Property="Fill" Value="{DynamicResource SemiColorBackground2}"/>
+                                    </Style>
+                                    <Style Selector="DataGridColumnHeader">
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource SemiColorBorder}"/>
+                                        <Setter Property="Padding" Value="8,8"/>
+                                    </Style>
+                                    <Style Selector="DataGridCell">
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource SemiColorBorder}"/>
+                                        <Setter Property="Padding" Value="8"/>
+                                        <Setter Property="Focusable" Value="False"/>
+                                    </Style>
+                                    <Style Selector="DataGridCell:focus">
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource SemiColorBorder}"/>
+                                    </Style>
+                                    <Style Selector="DataGridCell:selected">
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource SemiColorBorder}"/>
+                                    </Style>
+                                    <Style Selector="DataGridCell:focus-within">
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource SemiColorBorder}"/>
+                                    </Style>
+                                    <Style Selector="DataGridCell:current">
+                                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource SemiColorBorder}"/>
+                                    </Style>
+                                    <Style Selector="DataGridCell:current /template/ Grid#FocusVisual">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </Style>
+                                    <Style Selector="DataGridCell /template/ Grid#FocusVisual">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </Style>
+                                </DataGrid.Styles>
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Width="80" MinWidth="80" CanUserSort="False">
+                                        <DataGridTemplateColumn.Header>
+                                            <CheckBox IsChecked="{Binding $parent[DataGrid].((viewmodels:OperationLogViewModel)DataContext).IsAllSelected}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                        </DataGridTemplateColumn.Header>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
+                                                          HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="{DynamicResource Lang.Logs.Column.Time}" Width="SizeToCells" MinWidth="170" CanUserSort="True" SortMemberPath="Log.Timestamp">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Log.Timestamp, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" 
+                                                           VerticalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    
+                                    <DataGridTemplateColumn Header="{DynamicResource Lang.Logs.Column.Operation}" Width="SizeToCells" MinWidth="100" CanUserSort="True" SortMemberPath="Log.Operation">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DisplayOperation}" 
+                                                           VerticalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    
+                                    <DataGridTemplateColumn Header="{DynamicResource Lang.Logs.Column.Target}" Width="SizeToCells" MinWidth="100" CanUserSort="True" SortMemberPath="Log.Target">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DisplayTarget}" 
+                                                           VerticalAlignment="Center"
+                                                           ToolTip.Tip="{Binding DisplayTarget}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    
+                                    <DataGridTemplateColumn Header="{DynamicResource Lang.Logs.Column.Details}" Width="SizeToCells" MinWidth="150" CanUserSort="True" SortMemberPath="Log.Details">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DisplayDetails}" 
+                                                           VerticalAlignment="Center"
+                                                           Opacity="0.8"
+                                                           ToolTip.Tip="{Binding DisplayDetails}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </Border>
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:SecuritySettingsViewModel">
+            <DockPanel>
+                <TextBlock Text="{DynamicResource Lang.Security.Title}" 
+                           Classes="H3" 
+                           FontWeight="Bold" 
+                           FontSize="25" 
+                           DockPanel.Dock="Top"
+                           Margin="0,0,0,24"/>
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                            BorderThickness="1" 
+                            CornerRadius="8" 
+                            Padding="24" 
+                            Background="{DynamicResource SemiColorBackground1}"
+                            Margin="0,0,12,0">
+                        <StackPanel Spacing="16">
+                            <TextBlock Text="{DynamicResource Lang.Security.Desc}" 
+                                       Opacity="0.7" 
+                                       TextWrapping="Wrap"/>
+                            
+                            <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                                    BorderThickness="1" 
+                                    CornerRadius="8" 
+                                    Padding="16" 
+                                    Background="{DynamicResource SemiColorBackground2}">
+                                <StackPanel Spacing="12">
+                                    <TextBlock Text="{DynamicResource Lang.Security.MasterPasswordSection}" 
+                                               FontWeight="SemiBold" 
+                                               FontSize="16"/>
+                                    
+                                    <StackPanel Spacing="8">
+                                        <DockPanel LastChildFill="False">
+                                            <TextBlock Text="{DynamicResource Lang.Security.MasterPasswordStatus}" 
+                                                       VerticalAlignment="Center" 
+                                                       TextWrapping="Wrap"
+                                                       MaxWidth="400"
+                                                       DockPanel.Dock="Left"/>
+                                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                                                <Button Command="{Binding SetMasterPasswordCommand}" 
+                                                        Classes="Large"
+                                                        MinWidth="140"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        Content="{DynamicResource Lang.Security.SetMasterPassword}"
+                                                        IsEnabled="{Binding !HasMasterPassword}"
+                                                        IsVisible="{Binding !HasMasterPassword}"/>
+                                                <Button Command="{Binding SetMasterPasswordCommand}" 
+                                                        Classes="Large"
+                                                        MinWidth="140"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        Content="{DynamicResource Lang.Security.MasterPasswordSet}"
+                                                        IsEnabled="False"
+                                                        IsVisible="{Binding HasMasterPassword}"/>
+                                                <Button Command="{Binding RemoveMasterPasswordCommand}" 
+                                                        Classes="Large"
+                                                        MinWidth="140"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        Content="{DynamicResource Lang.Security.RemoveMasterPassword}"
+                                                        IsVisible="{Binding HasMasterPassword}"/>
+                                            </StackPanel>
+                                        </DockPanel>
+                                        <TextBlock Text="{Binding MasterPasswordHint}" 
+                                                   Foreground="{DynamicResource SemiColorDanger}" 
+                                                   TextWrapping="Wrap" 
+                                                   IsVisible="{Binding MasterPasswordHint, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                    </StackPanel>
+                                    
+                                    <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                                            BorderThickness="1" 
+                                            CornerRadius="6" 
+                                            Padding="12" 
+                                            Background="{DynamicResource SemiColorBackground1}">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock Text="{DynamicResource Lang.Security.SecurityNotice}" 
+                                                       FontWeight="SemiBold" 
+                                                       FontSize="14"/>
+                                            
+                                            <StackPanel Spacing="4" IsVisible="{Binding !HasMasterPassword}">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <PathIcon Data="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v2h-2V7zm0 4h2v6h-2v-6z" 
+                                                              Width="20" 
+                                                              Height="20" 
+                                                              Foreground="{DynamicResource SemiColorWarning}"
+                                                              VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{DynamicResource Lang.Security.NoPasswordWarning}" 
+                                                               Foreground="{DynamicResource SemiColorWarning}"
+                                                               FontWeight="SemiBold"
+                                                               VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <TextBlock Text="{DynamicResource Lang.Security.NoPasswordDesc1}" 
+                                                           Opacity="0.8" 
+                                                           TextWrapping="Wrap"/>
+                                                <TextBlock Text="{DynamicResource Lang.Security.NoPasswordDesc2}" 
+                                                           Opacity="0.8" 
+                                                           TextWrapping="Wrap"/>
+                                                <TextBlock Text="{DynamicResource Lang.Security.NoPasswordDesc3}" 
+                                                           Opacity="0.8" 
+                                                           TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                            
+                                            <StackPanel Spacing="4" IsVisible="{Binding HasMasterPassword}">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <PathIcon Data="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" 
+                                                              Width="20" 
+                                                              Height="20" 
+                                                              Foreground="{DynamicResource SemiColorSuccess}"
+                                                              VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{DynamicResource Lang.Security.HasPasswordInfo}" 
+                                                               Foreground="{DynamicResource SemiColorSuccess}"
+                                                               FontWeight="SemiBold"
+                                                               VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <TextBlock Text="{DynamicResource Lang.Security.HasPasswordDesc1}" 
+                                                           Opacity="0.8" 
+                                                           TextWrapping="Wrap"/>
+                                                <TextBlock Text="{DynamicResource Lang.Security.HasPasswordDesc2}" 
+                                                           Opacity="0.8" 
+                                                           TextWrapping="Wrap"/>
+                                                <TextBlock Text="{DynamicResource Lang.Security.HasPasswordDesc3}" 
+                                                           Opacity="0.8" 
+                                                           TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                            
+                            <DockPanel LastChildFill="False">
+                                <TextBlock Text="{DynamicResource Lang.Security.AppLock}" 
+                                           VerticalAlignment="Center" 
+                                           TextWrapping="Wrap"
+                                           MaxWidth="400"
+                                           DockPanel.Dock="Left"/>
+                                <ToggleSwitch DockPanel.Dock="Right" 
+                                              IsChecked="{Binding AppLockEnabled}" 
+                                              OnContent="{DynamicResource Lang.Toggle.On}" 
+                                              OffContent="{DynamicResource Lang.Toggle.Off}" />
+                            </DockPanel>
+                            <TextBlock Text="{Binding AppLockHint}" 
+                                       Foreground="{DynamicResource SemiColorDanger}" 
+                                       TextWrapping="Wrap" 
+                                       IsVisible="{Binding AppLockHint, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                            <DockPanel LastChildFill="False">
+                                <TextBlock Text="{DynamicResource Lang.Security.IdleAutoLock}" 
+                                           VerticalAlignment="Center" 
+                                           TextWrapping="Wrap"
+                                           MaxWidth="400"
+                                           DockPanel.Dock="Left"/>
+                                <ToggleSwitch DockPanel.Dock="Right" 
+                                              IsChecked="{Binding IdleAutoLockEnabled}" 
+                                              OnContent="{DynamicResource Lang.Toggle.On}" 
+                                              OffContent="{DynamicResource Lang.Toggle.Off}" />
+                            </DockPanel>
+                            <TextBlock Text="{Binding IdleAutoLockHint}" 
+                                       Opacity="0.7" 
+                                       TextWrapping="Wrap" 
+                                       IsVisible="{Binding IdleAutoLockHint, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                            <StackPanel Spacing="8" IsEnabled="{Binding IdleAutoLockEnabled}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="{DynamicResource Lang.Security.AutoLockMinutes}" 
+                                               VerticalAlignment="Center" 
+                                               Opacity="0.7"
+                                               TextWrapping="Wrap"/>
+                                    <ComboBox ItemsSource="{Binding AutoLockMinuteOptions}"
+                                              SelectedValue="{Binding AutoLockMinutes}"
+                                              SelectedValueBinding="{Binding Value}"
+                                              MinWidth="120"
+                                              VerticalAlignment="Center">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate x:DataType="viewmodels:AutoLockMinuteOption">
+                                                <TextBlock Text="{Binding DisplayText}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <TextBlock Text="{DynamicResource Lang.Security.MinutesUnit}" 
+                                               VerticalAlignment="Center" 
+                                               Opacity="0.7"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <DockPanel LastChildFill="False">
+                                <TextBlock Text="{DynamicResource Lang.Security.ClipboardClearEnabled}" 
+                                           VerticalAlignment="Center" 
+                                           TextWrapping="Wrap"
+                                           MaxWidth="400"
+                                           DockPanel.Dock="Left"/>
+                                <ToggleSwitch DockPanel.Dock="Right" 
+                                              IsChecked="{Binding ClipboardClearEnabled}" 
+                                              OnContent="{DynamicResource Lang.Toggle.On}" 
+                                              OffContent="{DynamicResource Lang.Toggle.Off}" />
+                            </DockPanel>
+                            <StackPanel Spacing="8" IsEnabled="{Binding ClipboardClearEnabled}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="{DynamicResource Lang.Security.ClipboardClearDelay}" 
+                                               VerticalAlignment="Center" 
+                                               Opacity="0.7"
+                                               TextWrapping="Wrap"/>
+                                    <ComboBox ItemsSource="{Binding ClipboardClearDelayOptions}"
+                                              SelectedValue="{Binding ClipboardClearDelaySeconds}"
+                                              SelectedValueBinding="{Binding Value}"
+                                              MinWidth="120"
+                                              VerticalAlignment="Center">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate x:DataType="viewmodels:ClipboardClearDelayOption">
+                                                <TextBlock Text="{Binding DisplayText}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBlock Text="{DynamicResource Lang.Security.ClipboardClearHint}" 
+                                       Opacity="0.7" 
+                                       TextWrapping="Wrap"/>
+                            <DockPanel LastChildFill="False">
+                                <TextBlock Text="{DynamicResource Lang.Security.BlockScreenshots}" 
+                                           VerticalAlignment="Center" 
+                                           TextWrapping="Wrap"
+                                           MaxWidth="400"
+                                           DockPanel.Dock="Left"/>
+                                <ToggleSwitch DockPanel.Dock="Right" 
+                                              IsChecked="{Binding BlockScreenshots}" 
+                                              OnContent="{DynamicResource Lang.Toggle.On}" 
+                                              OffContent="{DynamicResource Lang.Toggle.Off}" />
+                            </DockPanel>
+                            <TextBlock Text="{Binding ScreenshotBlockHint}" 
+                                       Opacity="0.7" 
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:BackupViewModel">
+            <v:BackupView />
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:TimeSettingsViewModel">
+            <v:TimeSettingsView />
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:AboutViewModel">
+            <StackPanel Spacing="24">
+                <TextBlock Text="{DynamicResource Lang.About.Title}" Classes="H3" FontWeight="Bold" FontSize="25" />
+                <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="24" Background="{DynamicResource SemiColorBackground1}">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="{DynamicResource Lang.About.AppName}" Classes="H5" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="{DynamicResource Lang.About.Version}"
+                                       Opacity="0.7"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="1.0.0"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="GitHub:"
+                                       Opacity="0.7"
+                                       VerticalAlignment="Center"/>
+                            <Button Classes="GitHubLinkButton"
+                                    Command="{Binding OpenGitHubRepoCommand}"
+                                    Cursor="Hand">
+                                <TextBlock Text="{Binding GitHubRepoUrl}"
+                                           Foreground="{DynamicResource SemiColorPrimary}"
+                                           TextDecorations="Underline"/>
+                            </Button>
+                        </StackPanel>
+                        <TextBlock Text="{DynamicResource Lang.About.License}" Opacity="0.7"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:DataType="viewmodels:SettingsViewModel">
+            <StackPanel Spacing="24">
+                <TextBlock Text="{DynamicResource Lang.Settings.Title}" Classes="H3" FontWeight="Bold" FontSize="25" />
+                <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1" CornerRadius="8" Padding="24" Background="{DynamicResource SemiColorBackground1}">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="{DynamicResource Lang.Settings.AppInfo}" Classes="H5" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="{DynamicResource Lang.Settings.NativeAOT}" Opacity="0.7"/>
+                            <TextBlock Text="{DynamicResource Lang.Settings.Enabled}" Foreground="Green" FontWeight="Bold"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+    </Window.DataTemplates>
+
+    <Window.Styles>
+        <Style Selector="Button.GitHubLinkButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Theme" Value="{x:Null}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="Button.GitHubLinkButton:pointerover">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        <Style Selector="Button.GitHubLinkButton:pressed">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+    </Window.Styles>
+
+    <Grid x:Name="MainGrid">
+        <ContentControl Content="{Binding SetupWizard}" IsVisible="{Binding IsSetupWizardVisible}"/>
+
+        <SplitView IsPaneOpen="{Binding IsSidebarExpanded}"
+                   DisplayMode="CompactInline"
+                   OpenPaneLength="290"
+                   CompactPaneLength="68"
+                   PaneBackground="{DynamicResource SemiColorBackground0}"
+                   IsVisible="{Binding !IsSetupWizardVisible}">
+        
+        <SplitView.Pane>
+            <Border BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="0,0,1,0">
+                <DockPanel Margin="12,24">
+                    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,32" LastChildFill="True">
+                         <Button DockPanel.Dock="Left" 
+                                      Command="{Binding ToggleSidebar}"
+                                      Theme="{DynamicResource TransparentButton}"
+                                      Width="44" Height="44" CornerRadius="8"
+                                      Margin="0,0,8,0">
+                            <PathIcon Data="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" Width="20" Height="20" Foreground="{DynamicResource SemiColorPrimary}" />
+                        </Button>
+                        
+                        <DockPanel VerticalAlignment="Center" IsVisible="{Binding IsSidebarExpanded}">
+                             <Button DockPanel.Dock="Right"
+                                     Command="{Binding ToggleTheme}" 
+                                     Theme="{DynamicResource TransparentButton}"
+                                     ToolTip.Tip="Toggle Theme">
+                                <PathIcon Data="{Binding ThemeIcon}" 
+                                          Width="20" Height="20" Foreground="{Binding ThemeIconColor}"/>
+                            </Button>
+                            
+                            <TextBlock Text="{DynamicResource Lang.SidebarTitle}" 
+                                       VerticalAlignment="Center" 
+                                       Classes="H4" 
+                                       FontWeight="Bold" 
+                                       Foreground="{DynamicResource SemiColorPrimary}"
+                                       Margin="8,0,0,0"/>
+                        </DockPanel>
+                    </DockPanel>
+
+                    <Button DockPanel.Dock="Bottom" 
+                            Click="OnLanguageClick" 
+                            Theme="{DynamicResource TransparentButton}"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,8,0,0"
+                            Padding="12"
+                            CornerRadius="8"
+                            ToolTip.Tip="Switch Language">
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <PathIcon Data="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z" 
+                                      Width="20" Height="20" Foreground="{DynamicResource SemiColorText2}"/>
+                            <TextBlock Text="{DynamicResource Lang.Settings.Language}" 
+                                       VerticalAlignment="Center" 
+                                       FontWeight="Medium"
+                                       IsVisible="{Binding IsSidebarExpanded}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <ListBox ItemsSource="{Binding NavigationItems}" SelectedItem="{Binding SelectedNavigationItem}" Background="Transparent">
+                        <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="CornerRadius" Value="12" />
+                                <Setter Property="Padding" Value="12" />
+                                <Setter Property="Margin" Value="0,4" />
+                            </Style>
+                        </ListBox.Styles>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="viewmodels:NavigationItem">
+                                <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+                                    <PathIcon Data="{Binding Icon}" Width="20" Height="20" Foreground="{DynamicResource SemiColorText2}"/>
+                                    <TextBlock Text="{Binding Name}" 
+                                               VerticalAlignment="Center" 
+                                               FontWeight="Bold"
+                                               IsVisible="{Binding $parent[Window].((viewmodels:MainViewModel)DataContext).IsSidebarExpanded}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </Border>
+        </SplitView.Pane>
+
+        <SplitView.Content>
+            <TransitioningContentControl Content="{Binding CurrentPage}" Margin="32" />
+        </SplitView.Content>
+        </SplitView>
+        
+        <v:LockScreenView DataContext="{Binding LockScreenVM}" 
+                          IsVisible="{Binding $parent[Window].((viewmodels:MainViewModel)DataContext).IsLocked}" />
+        
+        <Border x:Name="MessageBorder"
+                IsVisible="False"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,14,0,0"
+                Background="#FFF8E1"
+                CornerRadius="6"
+                Padding="12,10"
+                BoxShadow="0 4 12 0 #30000000"
+                Opacity="0"
+                ZIndex="9999">
+            <Border.Transitions>
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" Easing="CubicEaseInOut"/>
+                    <ThicknessTransition Property="Margin" Duration="0:0:0.3" Easing="CubicEaseOut"/>
+                </Transitions>
+            </Border.Transitions>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <PathIcon x:Name="MessageIcon"
+                          Data="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                          Width="18"
+                          Height="18"
+                          Foreground="#F57C00"
+                          VerticalAlignment="Center"/>
+                <TextBlock x:Name="MessageTextBlock"
+                           Text=""
+                           FontSize="14"
+                           Foreground="#333333"
+                           VerticalAlignment="Center"
+                           MaxWidth="600"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

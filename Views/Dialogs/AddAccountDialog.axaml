@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        xmlns:converters="clr-namespace:TwoFactorAuth.Converters"
+        x:Class="TwoFactorAuth.Views.Dialogs.AddAccountDialog"
+        x:DataType="viewmodels:AddAccountViewModel"
+        Width="420"
+        SizeToContent="Height"
+        Title="{DynamicResource Lang.Dialog.AddAccount}"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <converters:SvgToBitmapConverter x:Key="SvgToBitmapConverter"/>
+    </Window.Resources>
+    <StackPanel Margin="20" Spacing="12">
+        <TextBlock Text="{DynamicResource Lang.AccountName}" />
+        <TextBox Text="{Binding Name}" />
+
+        <TextBlock Text="{DynamicResource Lang.Issuer}" />
+        <ComboBox ItemsSource="{Binding ServiceProviders}"
+                  SelectedItem="{Binding SelectedServiceProvider}"
+                  HorizontalAlignment="Stretch"
+                  PlaceholderText="{DynamicResource Lang.ServiceProvider.SelectHint}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Image Width="16" Height="16"
+                               Source="{Binding Converter={StaticResource SvgToBitmapConverter}}"
+                               IsVisible="{Binding IconPath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Text="{Binding Issuer}" 
+                 Watermark="{DynamicResource Lang.ServiceProvider.CustomIssuerHint}"
+                 IsVisible="{Binding ShowIssuerInput}" />
+
+        <TextBlock Text="{DynamicResource Lang.Secret}" />
+        <TextBox Text="{Binding Secret}" />
+
+        <TextBlock Text="{DynamicResource Lang.Type}" />
+        <ComboBox ItemsSource="{Binding OtpTypes}" SelectedItem="{Binding Type}" HorizontalAlignment="Stretch" />
+
+        <TextBlock Text="{DynamicResource Lang.Digits}" />
+        <TextBox Text="{Binding Digits}" />
+
+        <TextBlock Text="{DynamicResource Lang.Period}" />
+        <TextBox Text="{Binding Period}" />
+
+        <TextBlock Text="{DynamicResource Lang.Category.Label}" />
+        <ComboBox ItemsSource="{Binding Categories}" 
+                  SelectedItem="{Binding SelectedCategory}" 
+                  HorizontalAlignment="Stretch">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Margin="0,0,10,10" />
+            <Button Content="{DynamicResource Lang.Save}" Click="OnSaveClick" Classes="Primary" Margin="0,0,10,10" />
+        </WrapPanel>
+    </StackPanel>
+</Window>
