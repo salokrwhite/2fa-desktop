@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+             x:Class="TwoFactorAuth.Views.BackupView"
+             x:DataType="viewmodels:BackupViewModel">
+    <DockPanel>
+        <TextBlock Text="{Binding Title}" 
+                   Classes="H3" 
+                   FontWeight="Bold" 
+                   FontSize="25" 
+                   DockPanel.Dock="Top"
+                   Margin="0,0,0,24"/>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Spacing="24" Margin="0,0,12,0">
+
+        <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                BorderThickness="1" 
+                CornerRadius="8" 
+                Padding="20" 
+                Background="{DynamicResource SemiColorBackground1}">
+            <StackPanel Spacing="12">
+                <TextBlock Text="{DynamicResource Lang.Backup.DataStatistics}" 
+                           FontWeight="SemiBold" 
+                           FontSize="16"/>
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                               Text="{DynamicResource Lang.Backup.AccountCount}" 
+                               Opacity="0.7" 
+                               Margin="0,0,16,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                               Text="{Binding AccountCount}" 
+                               FontWeight="SemiBold"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" 
+                               Text="{DynamicResource Lang.Backup.CategoryCount}" 
+                               Opacity="0.7" 
+                               Margin="0,0,16,0"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" 
+                               Text="{Binding CategoryCount}" 
+                               FontWeight="SemiBold"/>
+                    
+                    <TextBlock Grid.Row="2" Grid.Column="0" 
+                               Text="{DynamicResource Lang.Backup.LastBackupTime}" 
+                               Opacity="0.7" 
+                               Margin="0,0,16,0"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" 
+                               Text="{Binding LastBackupTime}" 
+                               FontWeight="SemiBold"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <Border BorderBrush="{DynamicResource SemiColorBorder}" 
+                BorderThickness="1" 
+                CornerRadius="8" 
+                Padding="20" 
+                Background="{DynamicResource SemiColorBackground1}">
+            <StackPanel Spacing="16">
+                <TextBlock Text="{DynamicResource Lang.Backup.Operations}" 
+                           FontWeight="SemiBold" 
+                           FontSize="16"/>
+
+                <StackPanel Spacing="8">
+                    <Button Content="{DynamicResource Lang.Backup.Export}" 
+                            Click="OnExportClick"
+                            Classes="Primary"
+                            HorizontalAlignment="Left"
+                            MinWidth="200">
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="Padding" Value="16,10"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <TextBlock Text="{DynamicResource Lang.Backup.ExportHint}" 
+                               FontSize="12" 
+                               Opacity="0.6" 
+                               TextWrapping="Wrap" 
+                               MaxWidth="500" 
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <StackPanel Spacing="8">
+                    <Button Content="{DynamicResource Lang.Backup.Import}" 
+                            Click="OnImportClick"
+                            HorizontalAlignment="Left"
+                            MinWidth="200">
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="Padding" Value="16,10"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <TextBlock Text="{DynamicResource Lang.Backup.ImportHint}" 
+                               FontSize="12" 
+                               Opacity="0.6" 
+                               TextWrapping="Wrap" 
+                               MaxWidth="500" 
+                               HorizontalAlignment="Left"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border BorderBrush="{DynamicResource SemiColorInfo}" 
+                BorderThickness="1" 
+                CornerRadius="8" 
+                Padding="20" 
+                Background="{DynamicResource SemiColorInfoBackground}">
+            <StackPanel Spacing="12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <PathIcon Data="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" 
+                              Width="20" 
+                              Height="20" 
+                              Foreground="{DynamicResource SemiColorInfo}"
+                              VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource Lang.Backup.ImportantReminder}" 
+                               FontWeight="SemiBold" 
+                               FontSize="14" 
+                               Foreground="{DynamicResource SemiColorInfo}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{DynamicResource Lang.Backup.Reminder1}" 
+                               FontSize="12" 
+                               TextWrapping="Wrap"/>
+                    <TextBlock Text="{DynamicResource Lang.Backup.Reminder2}" 
+                               FontSize="12" 
+                               TextWrapping="Wrap"/>
+                    <TextBlock Text="{DynamicResource Lang.Backup.Reminder3}" 
+                               FontSize="12" 
+                               TextWrapping="Wrap"/>
+                    <TextBlock Text="{DynamicResource Lang.Backup.Reminder4}" 
+                               FontSize="12" 
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        x:Class="TwoFactorAuth.Views.Dialogs.MoveToCategoryDialog"
+        x:DataType="viewmodels:MoveToCategoryViewModel"
+        Width="400"
+        Height="250"
+        Title="{DynamicResource Lang.Dialog.MoveToCategory}"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+    <StackPanel Margin="24" Spacing="16">
+        <TextBlock Text="{DynamicResource Lang.Category.Label}" />
+        <ComboBox ItemsSource="{Binding Categories}" 
+                  SelectedItem="{Binding SelectedCategory}" 
+                  HorizontalAlignment="Stretch">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+            <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Margin="0,0,12,12" />
+            <Button Content="{DynamicResource Lang.Save}" Click="OnSaveClick" Classes="Primary" Margin="0,0,12,12" />
+        </WrapPanel>
+    </StackPanel>
+</Window>

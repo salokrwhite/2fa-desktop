@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:TwoFactorAuth.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="220"
+        x:Class="TwoFactorAuth.Views.Dialogs.ThemeSelectionDialog"
+        x:DataType="vm:ThemeSelectionViewModel"
+        Width="400" Height="220"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        SystemDecorations="BorderOnly"
+        Background="Transparent"
+        TransparencyLevelHint="AcrylicBlur">
+
+    <Border CornerRadius="12" ClipToBounds="True" Background="{DynamicResource SemiColorBackground1}" BorderBrush="{DynamicResource SemiColorBorder}" BorderThickness="1">
+        <Grid RowDefinitions="Auto,*,Auto" Margin="24">
+            <TextBlock Grid.Row="0" Text="{DynamicResource Lang.Settings.Theme}" Classes="H4" Margin="0,0,0,16"/>
+
+            <StackPanel Grid.Row="1" Spacing="12" VerticalAlignment="Center">
+                <RadioButton Content="{DynamicResource Lang.Theme.Light}" IsChecked="{Binding IsLight}"/>
+                <RadioButton Content="{DynamicResource Lang.Theme.Dark}" IsChecked="{Binding IsDark}"/>
+            </StackPanel>
+
+            <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+                <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Theme="{DynamicResource TertiaryButton}" Margin="0,0,12,12"/>
+                <Button Content="{DynamicResource Lang.Save}" Click="OnSaveClick" Classes="Primary" Theme="{DynamicResource SolidButton}" Margin="0,0,12,12"/>
+            </WrapPanel>
+        </Grid>
+    </Border>
+</Window>
+

@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewmodels="clr-namespace:TwoFactorAuth.ViewModels"
+        x:Class="TwoFactorAuth.Views.Dialogs.ServiceProviderSettingsDialog"
+        Width="420"
+        Height="380"
+        Title="{DynamicResource Lang.ServiceProvider.EditTitle}"
+        WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="20" Spacing="12">
+        <TextBlock Text="{DynamicResource Lang.ServiceProvider.Name}" />
+        <TextBox x:Name="NameBox" />
+
+        <TextBlock Text="{DynamicResource Lang.ServiceProvider.Description}" />
+        <TextBox x:Name="DescriptionBox" Watermark="{DynamicResource Lang.ServiceProvider.DescriptionPlaceholder}" />
+
+        <TextBlock Text="{DynamicResource Lang.ServiceProvider.Icon}" />
+        <ComboBox x:Name="IconComboBox" HorizontalAlignment="Stretch">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:IconOption">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Image Source="{Binding IconImage}" Width="20" Height="20"
+                               IsVisible="{Binding HasIcon}" />
+                        <TextBlock Text="{Binding DisplayName}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Margin="0,0,10,10" />
+            <Button Content="{DynamicResource Lang.Save}" Click="OnSaveClick" Classes="Primary" Margin="0,0,10,10" />
+        </WrapPanel>
+    </StackPanel>
+</Window>

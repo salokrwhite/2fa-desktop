@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<linker>
+  <assembly fullname="Avalonia.Controls" preserve="all" />
+  <assembly fullname="Avalonia.Base" preserve="all" />
+  <assembly fullname="Avalonia" preserve="all" />
+  <assembly fullname="Avalonia.Markup.Xaml" preserve="all" />
+  <assembly fullname="Avalonia.Themes.Fluent" preserve="all" />
+  <assembly fullname="TwoFactorAuthDesktop" preserve="all" />
+  <assembly fullname="TwoFactorAuthDesktop">
+    <type fullname="TwoFactorAuth.Models.*" preserve="all" />
+    <type fullname="TwoFactorAuth.ViewModels.*" preserve="all" />
+    <type fullname="TwoFactorAuth.Views.*" preserve="all" />
+    <type fullname="TwoFactorAuth.Data.*" preserve="all" />
+    <type fullname="TwoFactorAuth.Services.*" preserve="all" />
+  </assembly>
+  <assembly fullname="Microsoft.Data.Sqlite" preserve="all" />
+  <assembly fullname="SQLitePCLRaw.core" preserve="all" />
+  <assembly fullname="Semi.Avalonia" preserve="all" />
+  <assembly fullname="Semi.Avalonia.DataGrid" preserve="all" />
+  <assembly fullname="Microsoft.Extensions.DependencyInjection" preserve="all" />
+  <assembly fullname="BCrypt.Net-Next" preserve="all" />
+  <assembly fullname="zxing" preserve="all" />
+  <assembly fullname="Svg.Skia" preserve="all" />
+  <assembly fullname="Svg.Model" preserve="all" />
+  <assembly fullname="Svg.Custom" preserve="all" />
+  <assembly fullname="ShimSkiaSharp" preserve="all" />
+  <assembly fullname="ExCSS" preserve="all" />
+  <assembly fullname="SkiaSharp" preserve="all" />
+</linker>

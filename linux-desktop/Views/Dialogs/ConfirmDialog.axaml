@@ -1,0 +1,18 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TwoFactorAuth.Views.Dialogs"
+        x:Class="TwoFactorAuth.Views.Dialogs.ConfirmDialog"
+        x:DataType="local:ConfirmDialogViewModel"
+        Width="350" SizeToContent="Height"
+        Title="{Binding Title}"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+    <StackPanel Margin="20" Spacing="20">
+        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" FontSize="14" />
+        
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{DynamicResource Lang.Cancel}" Click="OnCancelClick" Margin="0,0,10,10" />
+            <Button Content="{DynamicResource Lang.Confirm}" Click="OnConfirmClick" Theme="{DynamicResource DangerButton}" Margin="0,0,10,10" />
+        </WrapPanel>
+    </StackPanel>
+</Window>
